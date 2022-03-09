@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN | zh-TW | en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ChromeV8是如何工作的 | Oliver</title><meta name="keywords" content="V8"><meta name="author" content="matthew"><meta name="copyright" content="matthew"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Chrome V8 是如何工作的我们知道，V8 是 Google 开源的 JavaScript 引擎，被广泛应用于各种 JavaScript 执行环境，比如 Chrome 浏览器、NodeJS、Electron 以及 Deno。但是，很多前端开发人员对 V8 的理解还停留在表面，只是单纯地使用 JavaScript 和调用 Web API, 并不了解 V8 这个黑盒内部是如何工作的。我们只有搞清楚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ChromeV8是如何工作的">
+<meta property="og:url" content="https://matthrews.github.io/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/index.html">
+<meta property="og:site_name" content="Oliver">
+<meta property="og:description" content="Chrome V8 是如何工作的我们知道，V8 是 Google 开源的 JavaScript 引擎，被广泛应用于各种 JavaScript 执行环境，比如 Chrome 浏览器、NodeJS、Electron 以及 Deno。但是，很多前端开发人员对 V8 的理解还停留在表面，只是单纯地使用 JavaScript 和调用 Web API, 并不了解 V8 这个黑盒内部是如何工作的。我们只有搞清楚">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-05-04T14:39:57.000Z">
+<meta property="article:modified_time" content="2021-08-12T08:24:45.421Z">
+<meta property="article:author" content="matthew">
+<meta property="article:tag" content="V8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/bloger/img/favicon.png"><link rel="canonical" href="https://matthrews.github.io/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/bloger/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/bloger/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-08-12 16:24:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/bloger/">Oliver</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ChromeV8是如何工作的</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-05-04T14:39:57.000Z" title="Created 2021-05-04 22:39:57">2021-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-08-12T08:24:45.421Z" title="Updated 2021-08-12 16:24:45">2021-08-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/bloger/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/">浏览器相关</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">4.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>14min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ChromeV8是如何工作的"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Chrome-V8-是如何工作的"><a href="#Chrome-V8-是如何工作的" class="headerlink" title="Chrome V8 是如何工作的"></a>Chrome V8 是如何工作的</h1><p>我们知道，V8 是 Google 开源的 JavaScript 引擎，被广泛应用于各种 JavaScript 执行环境，比如 Chrome 浏览器、NodeJS、Electron 以及 Deno。但是，很多前端开发人员对 V8 的理解还停留在表面，只是单纯地使用 JavaScript 和调用 Web API, 并不了解 V8 这个黑盒内部是如何工作的。我们只有搞清楚这个问题，才能写出性能更好，更优雅的 JavaScript 代码。</p>
+<p>同时，了解 JavaScript 的执行原理，也能够让你更轻松的理解 Babel 的词法分析和语法分析原理、ESLint 的原发检查机制、React 和 Vue 等前端框架的底层实现，以后你在面对其他新的技术和新框架，也能够以不变应万变。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v8.jpg" alt="v8"></p>
+<p>所以，我们先从宏观上学习 V8 架构的演进历史，了解 V8 是如何演进成如此成熟的架构，然后在此基础上深入学习 V8 执行 JavaScript 过程中的词法分析、语法分析、解释器、优化编译器的工作机制及原理，让我们知其然并知其所以然。</p>
+<h2 id="V8-架构演进"><a href="#V8-架构演进" class="headerlink" title="V8 架构演进"></a>V8 架构演进</h2><p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v82.jpg" alt="v82"></p>
+<p>2008 年，V8 发布了第一个版本，V8 刚一发布，其性能远超同时期竞争对手，比如 SpiderMonkey、JavaScriptCore，关注度非常高。不过，当时 V8 架构比较激进，是直接将 JavaScript 代码编译为机器码并执行，所以执行速度很快。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v83.jpg" alt="v83"></p>
+<p>但在这个结构中，V8 只有 Codegen 一个编译器，对代码的优化很有限。所以在 2010 年 V8 发布了 Crankshaft 编译器，JavaScript 函数通常会先被 Full-Codegen 编译器，如果后续该函数会被多次执行，那么就是用 Crankshaft 再重新编译，生成更优化的代码，之后就是用优化后的代码来执行，进而提升性能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v84.jpg" alt="v84"></p>
+<p>但是 Crankshaft 对代码的优化有限, 所以 2015 年 V8 中加入了 TurboFan。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v85.jpg" alt="v85"></p>
+<p>这时的 V8 依旧是直接将源码编译为机器码的架构，这种架构存在核心问题是内存消耗过大，尤其是在移动设备上，通过 Full-Codegen 编译出来的代码，几乎占整个 Chrome 浏览器的三分之一的内存，这样为代码运行时留下的内存就更少了，于是 2016 年 V8 加入了 Ignition 解释器，重新引入了字节码，旨在减少内存使用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v86.jpg" alt="v86"></p>
+<p>2017 年 V8 正式发布全新编译 pipeline，也就是使用 Ignition 和 TurboFan 的组合来编译执行代码。从 V85.9 版本开始，早期的 Full-Codegen 和 Crankshaft 编译器就不再用来执行 JavaScript 代码，在最新的架构中，最核心的就三个模块：解析器(Parser)、解释器(Ignition)、优化编译器(TurboFan)。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v87.jpg" alt="v87"></p>
+<p>所以，接下来我们从解析、解释、编译三个部分触发，深入学习 V8 中 JavaScript 的代码执行逻辑。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v88.jpg" alt="v88"></p>
+<p>当 V8 执行 JavaScript 源码时，首先解析器会把源码解析为抽象语法树(Abstract Sytntax Tree)，然后解释器再将 AST 翻译为字节码，一边解释一边执行，在此过程中，解释器会记录特定代码片段的运行次数，如果运行次数超过某个阈值，那么这段代码就被标记为热代码(Hot Code)，并将运行信息反馈给优化编译器，优化编译器根据反馈信息优化并编译字节码，最终生成优化后的机器码。这样，当该段代码再次执行时，解释器就直接使用优化机器码执行，不用再次解释，从而大大提高了代码运行效率，这种在运行时编译代码的技术也被称为即时编译(JIT)，通过 JIT，可以极大提升 JavaScript 代码的执行性能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/v89.jpg" alt="v89"></p>
+<p>那么解析器是如何把源码转换为 AST 呢？首先我们要清楚，要让 V8 执行我们编写的源码，那么就要将源码转换为 V8 能理解的格式，V8 首先会把源码解析为一个抽象语法树(AST)，抽象语法树是用来表现源码树结构的对象，这个过程称为解析(Parsing)，主要由 V8 的 Parser 模块实现，然后 V8 的解释器会把 AST 编译为字节码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/parser.jpg" alt="parser"></p>
+<p>解析和编译过程的性能非常重要，因为 V8 只有等编译完成后才能运行代码，整个解析的过程可以分为两部分：</p>
+<ul>
+<li>第一部分词法分析(Lexical Analysis)，词法分析就是将字符流转换为 tokens，字符流就是我们编写的一行行代码，token 是指语法上不能再分割的最小单位，可能是单个字符，也可能是字符串，图中的 Scanner 就是 V8 的词法分析器</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/parser2.jpg" alt="parser2"></p>
+<ul>
+<li>第二部分语法分析(Syntax Analysis), 语法分析是根据语法规则将 tokens 组成一个有嵌套层级的的抽象语法树，在这个过程中，如果源码不符合语法规范，解析过程就会终止，并抛出语法错误。图中的 Parser 和 Pre-Parser 都是 V8 的语法分析器。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/parser3.jpg" alt="parser3"></p>
+<p>接下来我们就详细看一下词法分析和语法分析</p>
+<p>首先是词法分析，在 V8 中，Scanner 负责接收 Unicode 字符流，并将其解析为 tokens，提供给解析器使用。比如<code>var a = 1;</code>这行代码词法分析后得 tokens 如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Keyword&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;var&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Identifier&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;a&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Punctuator&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;=&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Numeric&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Punctuator&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;;&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们这行代码包括 5 个 tokens： <code>关键字var</code>, <code>标识符a</code>，<code>赋值运算符=</code>， <code>数字1</code>以及<code>分隔符;</code></p>
+<p>加下来，V8 解析器会通过语法分析，根据 tokens 生成 AST，这行代码生成的 AST 如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Program&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;body&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;VariableDeclaration&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;declarations&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;VariableDeclarator&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;id&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Identifier&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;a&quot;</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">&quot;init&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Literal&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;value&quot;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">&quot;raw&quot;</span>: <span class="string">&quot;1&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">&quot;kind&quot;</span>: <span class="string">&quot;var&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;sourceType&quot;</span>: <span class="string">&quot;script&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你也可以在<a target="_blank" rel="noopener" href="https://esprima.org/demo/parse.html?code=var%20a%20=%201;%0A">在线工具</a>上修改代码，观察 AST 的结构</p>
+<p>但是，对于一份 JavaScript 源码，如果所有源码在执行前都要完全经过解析才能执行，那必然会面临三个问题：</p>
+<ul>
+<li><p>代码执行时间变长，因为一次性解析所有代码必然会增加代码的运行时间</p>
+</li>
+<li><p>消耗更多内存，因为解析完的 AST 以及根据 AST 编译后的字节码都会放在内存中，这样必然会消耗更多的内存</p>
+</li>
+<li><p>占用磁盘空间，因为编译后的代码还会缓存在磁盘上，所以会重用磁盘空间</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/p1.jpg" alt="p1"></p>
+<p>因此，现在主流的 JavaScript 引擎都实现了<code>延迟解析</code>, 延迟解析的思想很简单，就是在解析过程中，对于那些不是立即执行的函数，只进行预解析(Pre-Parser)，只有当函数调用时才对函数进行全量解析。进行预解析时，只验证函数的语法是否有效，解析函数声明以及确定函数作用域，不生成 AST。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/p2.jpg" alt="p2"></p>
+<p>实现预解析的就是 Pre-Parser 解析器, 以如下代码为例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = a + b;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">foo(<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>由于 Scanner 是按字节流从上往下一行行读取代码，所以 V8 解析器也是从上往下解析代码，当 V8 解析器解释到函数声明时，发现他不是立即执行的，会使用 Pre-Parser 解释器对其预解析，这个过程中，只会解析函数声明，不会解析函数内部的代码，不会为函数内部的代码生成 AST，然后 Ignition 解释器会把 AST 编译为字节码并执行，解释器也会按照自上而下的顺序执行代码，先执行<code>var a = 1;</code>和<code>var b = 2;</code>两个赋值表达式，然后再执行函数调用<code>foo(1, 2);</code>, 这是 Parser 解析器才会继续解析函数内的代码并生成 AST，再将该 AST 交给 Ignition 解释器编译执行。</p>
+<p>那么解释器(Ignition)是如何将 AST 翻译为字节码并执行的呢？在 V8 架构的演进中，V8 为了解决内存占用问题引入了字节码，如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte.jpg" alt="byte"></p>
+<p>通常，一个几 KB 的文件转换为机器码可能就是几十兆，这回消耗巨大的内存空间，所以 V8 引入了字节码。V8 的字节码是对机器码的抽象，其语法与汇编有些类似，你可以把 V8 字节码看成一个个指令，这些指令组合在一起，就实现了我们编写的功能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte2.jpg" alt="byte2"></p>
+<p>V8 一共定义了几百个字节码，你可以在 V8 解释器的头文件中查看所有的字节码，Ignition 解释器在执行字节码时, 主要使用了通用寄存器和累加寄存器，其中，函数参数和局部变量都保存在通用寄存器中，而累加寄存器用于保存中间结果，让我们来看一段代码来进一步学习字节码的执行流程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> d = c - <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> a + d * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f(<span class="number">5</span>, <span class="number">2</span>, <span class="number">150</span>);</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们定义了一个含有三个参数的函数 f，函数的功能就是对参数进行计算，并返回值。<br>假设我们以参数 5, 2, 150 调用这个函数，那么 Ignition 解释器首先会把函数编译为字节码，执行<code>node --print-bytecode test/index.js &gt; bytecode.txt</code>来查看 JavaScript 文件生成的字节码输出到<code>bytecode.txt</code>文件，打开该文件直接查看文件末尾的字节码如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">[generated bytecode for function: f (0x00ece2c7ad59 &lt;SharedFunctionInfo f&gt;)]</span><br><span class="line">Parameter count 4</span><br><span class="line">Register count 1</span><br><span class="line">Frame size 8</span><br><span class="line">   33 S&gt; 000000ECE2C7B4D6 @    0 : 25 02             Ldar a2</span><br><span class="line">   35 E&gt; 000000ECE2C7B4D8 @    2 : 41 64 00          SubSmi [100], [0]</span><br><span class="line">         000000ECE2C7B4DB @    5 : 26 fb             Star r0</span><br><span class="line">   45 S&gt; 000000ECE2C7B4DD @    7 : 25 03             Ldar a1</span><br><span class="line">   58 E&gt; 000000ECE2C7B4DF @    9 : 36 fb 02          Mul r0, [2]</span><br><span class="line">   54 E&gt; 000000ECE2C7B4E2 @   12 : 34 04 01          Add a0, [1]</span><br><span class="line">   62 S&gt; 000000ECE2C7B4E5 @   15 : aa                Return</span><br><span class="line">Constant pool (size = 0)</span><br><span class="line">Handler Table (size = 0)</span><br><span class="line">Source Position Table (size = 14)</span><br><span class="line">0x00ece2c7b4e9 &lt;ByteArray[14]&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte3.jpg" alt="byte3"></p>
+<p>如图所示，当 Ignition 解释器执行代码时，首先会把参数分别加载到 a0, a1, a2 寄存器上，图中的 accumulator 表示累加寄存器，然后在逐行执行字节码。<code>Ldar a2</code>表示将 a2 寄存器的值加载到累加寄存器中，加载后，累加寄存器的值就变为了 150<br><code>SubSmi [100]</code>表示将累加寄存器的值减少 100，这时累加寄存器的值就变为了 50，<code>[0]</code>表示反馈向量(FeedBack Vector)的索引，反馈向量就记录了函数在执行过程中的一些关键数据。<code>Star r0</code>表示把累加寄存器的值保存在寄存器 r0 中，这时 r0 的值就变为了 50，<code>Ldar a1</code>表示将 a1 寄存器的值加载到累加寄存器中，这时累加寄存器的值就变为了 2，<br><code>Mul r0, [2]</code>表示将累加寄存器的值与 r0 寄存器的值相乘，并将结果再次放入累加寄存器，其中<code>[2]</code>同样是反馈向量，执行完毕后，accumulator 的值就变成了 100，<code>Add a0, [1]</code>表示将累加寄存器的值与 a0 寄存器的值相加，并将结果再次放入累加寄存器，这是 accumulator 的值就变成了 105，Return 表示结束当前函数的执行并返回累加寄存器中的值。所以最终函数的执行结果时 105</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte9.jpg" alt="byte9"><br>这里需要注意的是，Ignition 解释器在执行字节码时，依旧需要将字节码转换为机器码，因为 CPU 只能识别机器码，虽然多了一层字节码的转换，看起来效率低了，但是相比于机器码，基于字节码可以更方便进行行性能优化。<br><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte10.jpg" alt="byte10"><br>而 V8 的确也做了很多性能优化的工作，其中，最主要的就是使用 TurboFan 编译器编译热点代码，这些性能优化，使得如今基于字节码架构的行呢个优化要远超当年直接编译机器码架构的性能</p>
+<p>Ignition 解释器在解释执行的过程中，会标记重复执行的热点代码，这些被标记的代码，会被 TurboFan 编译器编译生成效率更高的机器码，那么 TurboFan 编译器具体是怎么工作的呢？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte11.jpg" alt="byte11"></p>
+<p>其中，主要有两个算法，一个是内联，一个是逃逸分析，我们先看看内联</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">three</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码如果未经优化，直接编译该段代码，会分别生成两个函数的机器码</p>
+<p>但为了进一步提升性能，TurboFan 编译器就会对以上两个函数进行内联，然后再编译</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte12.jpg" alt="byte12"></p>
+<p>由于函数内部的行为就是求 1 和 2 的和，所以这段代码就有了改变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">three_add_inlined</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> add_return_value = x + y;</span><br><span class="line">  <span class="keyword">return</span> add_return_value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更进一步，由于函数 three_add_inlined 中的 x 和 y 的值都是确定的，所以 three_add_inlined 还可以优化，直接返回结果 3</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">three_add_const_folded</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终编译生成的机器码相比优化前就少了非常之多，执行效率自然也高了很多。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/byte13.jpg" alt="byte13"></p>
+<p>通过内联，可以降低复杂度，消除冗余代码，合并常量，并且内联技术通常也是逃逸分析的基础。那么什么是逃逸分析呢？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/t1.jpg" alt="t1"></p>
+<p>简单来说，它是指分析对象的的生命周期，是否仅局限于当前函数</p>
+<p>让我们在来看一个简单的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">x, y</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.x = x;</span><br><span class="line">    <span class="built_in">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 求曼哈顿距离</span></span><br><span class="line">  <span class="function"><span class="title">distance</span>(<span class="params">that</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(<span class="built_in">this</span>.x - that.x) + <span class="built_in">Math</span>.abs(<span class="built_in">this</span>.y - that.y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">manhattan</span>(<span class="params">x1, y1, x2, y2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="keyword">new</span> Point(x1, y1);</span><br><span class="line">  <span class="keyword">const</span> b = <span class="keyword">new</span> Point(x2, y2;</span><br><span class="line">  <span class="keyword">return</span> a.distance(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TurboFan 编译器首先会通过内联，将 manhattan 函数转换为如下函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">manhattan_inlined</span>(<span class="params">x1, y1, x2, y2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = &#123; <span class="attr">x</span>: x1, <span class="attr">y</span>: y1 &#125;;</span><br><span class="line">  <span class="keyword">const</span> b = &#123; <span class="attr">x</span>: x2, <span class="attr">y</span>: y2 &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a.x - b.x) + <span class="built_in">Math</span>.abs(a.y - b.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样函数看起来就简单多了，再接下来，就会对 manhattan_inlined 中的对象进行逃逸分析</p>
+<p>什么样的对象会被认为是“未逃逸”的呢？主要要满足如下两个条件：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/t2.jpg" alt="t2"></p>
+<p>首先，对象是在函数内部定义；其次，对象只作用于函数内部。比如，函数没有被返回，也没有传递或者给其他函数调用</p>
+<p>在 manhattan_inlined 函数中，变量 a 和 b 都是函数里内部普通变量，所以他们都是未逃逸对象，那么我们就可以对函数中的对象进行替换了，使用变量替换掉对象，这样函数内部就不再有对象定义，取而代之的是 a_x, a_y, b_x, b_y，并且直接来源于函数参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">manhattan_scalar_eplacement</span>(<span class="params">x1, y1, x2, y2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a_x = x1;</span><br><span class="line">  <span class="keyword">const</span> a_y = y1;</span><br><span class="line">  <span class="keyword">const</span> b_x = x2;</span><br><span class="line">  <span class="keyword">const</span> b_y = y2;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a_x - b_x) + <span class="built_in">Math</span>.abs(a_y - b_y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做的好处就是，我们可以直接将变量加载到寄存器上，不再需要从内存中访问对象了，提升了执行效率的同时，还减少了内存的使用</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>V8 架构演进史</li>
+</ul>
+<p>最初，V8 是没有字节码的，直接将 JavaScript 源码编译为机器码执行，这种架构导致内存占用过高</p>
+<p>后来引入了字节码</p>
+<ul>
+<li>V8 执行 JavaScript 的原理</li>
+</ul>
+<p>大致分为第三个步骤</p>
+<p>首先，解释器将 JavaScript 源码解析为 AST，解析过程分为词法分析和语法分析，V8 通过预解析提升执行效率</p>
+<p>然后，解释器 Ignition 根据 AST 生成字节码并执行，这个过程中会收集反馈信息，交给 TurboFan 进行优化编译，TurboFan 根据 Ignition 收集的反馈信息，将字节码编译为优化后的机器码，后续 Ignition 用优化机器码代替字节码执行，进而提升性能</p>
+<!-- https://segmentfault.com/a/1190000040331440 -->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">matthew</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://matthrews.github.io/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/">https://matthrews.github.io/bloger/2021/05/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3/ChromeV8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/bloger/tags/V8/">V8</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/bloger/2021/05/05/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">前端工程化实践</div></div></a></div><div class="next-post pull-right"><a href="/bloger/2021/05/04/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BB%A5%E7%94%A8%E6%88%B7%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">以用户为中心的性能指标</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="this.onerror=null;this.src='/bloger/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">matthew</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Matthrews"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Matthrews" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:matthrews@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">即是最平凡的人，也得要为他那个世界的存在而战斗。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chrome-V8-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">Chrome V8 是如何工作的</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#V8-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">V8 架构演进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2022/02/14/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9F/go/go/" title="Go 语言学习笔记">Go 语言学习笔记</a><time datetime="2022-02-13T16:00:00.000Z" title="Created 2022-02-14 00:00:00">2022-02-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E9%97%AD%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/" title="闭包是什么？">闭包是什么？</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8/" title="数组常见方法使用">数组常见方法使用</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/23/%E5%9B%BE%E8%A7%A3Google%20V8/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F/" title="No title">No title</a><time datetime="2021-08-23T04:52:09.872Z" title="Created 2021-08-23 12:52:09">2021-08-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/10/UI%E6%A1%86%E6%9E%B6/%E7%B2%BE%E7%AE%80%E7%89%88React%E6%BA%90%E7%A0%81%E6%89%8B%E7%A8%BF/" title="精简版React源码手稿">精简版React源码手稿</a><time datetime="2021-08-10T01:21:38.167Z" title="Created 2021-08-10 09:21:38">2021-08-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By matthew</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/bloger/js/utils.js"></script><script src="/bloger/js/main.js"></script><script src="/bloger/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Wei8C4JdKTzzmEUzuQQghyzQ-gzGzoHsz',
+      appKey: 'x7JbNFwj9w3z0Kva0QlnTRJM',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

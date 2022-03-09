@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN | zh-TW | en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>深入浅出 Webpack 阅读笔记 | Oliver</title><meta name="keywords" content="Webpack"><meta name="author" content="matthew"><meta name="copyright" content="matthew"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深入浅出 Webpack[TOC] 入门系列模块化 什么是模块化？ 复杂的系统分解到多个模块以方便编码  为什么要使用模块化思想组织代码？ 以前使用的是命名控件方式组织代码，比如 jQuery 库把它的 API 都放在了 window.$，这样会带来命名空间冲突、无法合理的管理项目的依赖和版本和无法有效控制依赖加载顺序等问题  两种模块化规范：CmmonJS(CJS),AMD 和 ESM  Com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出 Webpack 阅读笔记">
+<meta property="og:url" content="https://matthrews.github.io/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/[%E5%90%B4%E6%B5%A9%E9%BA%9F]%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/index.html">
+<meta property="og:site_name" content="Oliver">
+<meta property="og:description" content="深入浅出 Webpack[TOC] 入门系列模块化 什么是模块化？ 复杂的系统分解到多个模块以方便编码  为什么要使用模块化思想组织代码？ 以前使用的是命名控件方式组织代码，比如 jQuery 库把它的 API 都放在了 window.$，这样会带来命名空间冲突、无法合理的管理项目的依赖和版本和无法有效控制依赖加载顺序等问题  两种模块化规范：CmmonJS(CJS),AMD 和 ESM  Com">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-11T01:37:01.799Z">
+<meta property="article:author" content="matthew">
+<meta property="article:tag" content="Webpack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/bloger/img/favicon.png"><link rel="canonical" href="https://matthrews.github.io/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/[%E5%90%B4%E6%B5%A9%E9%BA%9F]%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/bloger/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/bloger/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-08-11 09:37:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/bloger/">Oliver</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深入浅出 Webpack 阅读笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-01-31T16:00:00.000Z" title="Created 2021-02-01 00:00:00">2021-02-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-08-11T01:37:01.799Z" title="Updated 2021-08-11 09:37:01">2021-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/bloger/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">构建工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>7min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深入浅出 Webpack 阅读笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/%5B%E5%90%B4%E6%B5%A9%E9%BA%9F%5D%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/%5B%E5%90%B4%E6%B5%A9%E9%BA%9F%5D%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="深入浅出-Webpack"><a href="#深入浅出-Webpack" class="headerlink" title="深入浅出 Webpack"></a>深入浅出 Webpack</h2><p>[TOC]</p>
+<h3 id="入门系列"><a href="#入门系列" class="headerlink" title="入门系列"></a>入门系列</h3><h4 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h4><ul>
+<li><p>什么是模块化？ 复杂的系统分解到多个模块以方便编码</p>
+</li>
+<li><p>为什么要使用模块化思想组织代码？ 以前使用的是命名控件方式组织代码，比如 jQuery 库把它的 API 都放在了 window.$，这样会带来命名空间冲突、无法合理的管理项目的依赖和版本和无法有效控制依赖加载顺序等问题</p>
+</li>
+<li><p>两种模块化规范：CmmonJS(CJS),AMD 和 ESM</p>
+</li>
+<li><p>CommonJS 的优点： 代码可复用于 Node.js 环境下并运行，例如做同构应用； 通过 NPM 发布的很多第三方模块都采用了 CommonJS 规范。</p>
+</li>
+<li><p>CommonJS 的缺点: 代码无法直接运行在浏览器环境下，必须通过工具转换成标准的 ES5</p>
+</li>
+<li><p>AMD 的优点在于： 可在不转换代码的情况下直接在浏览器中运行； 可异步加载依赖； 可并行加载多个依赖； 代码可运行在浏览器环境和 Node.js 环境下。</p>
+</li>
+<li><p>AMD 的缺点: JavaScript 运行环境没有原生支持 AMD，需要先导入实现了 AMD 的库后才能正常使用。</p>
+</li>
+<li><p>ES6 模块化 ES6 模块化是欧洲计算机制造联合会 ECMA 提出的 JavaScript 模块化规范，它在语言的层面上实现了模块化</p>
+<p>浏览器厂商和 Node.js 都宣布要原生支持该规范。它将逐渐取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案</p>
+<p>缺点在于目前无法直接运行在大部分 JavaScript 运行环境下，必须通过工具转换成标准的 ES5 后才能正常运行<br><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html">Node.js 如何处理 ES6 模块</a></p>
+</li>
+</ul>
+<h4 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h4><ul>
+<li>构建过程做了什么？</li>
+</ul>
+<ol>
+<li>把源代码转换成发布到线上的可执行 JavaScrip、CSS、HTML 代码，包括如下内容。<ul>
+<li>代码转换：TypeScript 编译成 JavaScript、SCSS 编译成 CSS 等。</li>
+<li>文件优化：压缩 JavaScript、CSS、HTML 代码，压缩合并图片等。</li>
+<li>代码分割：提取多个页面的公共代码、提取首屏不需要执行部分的代码让其异步加载。</li>
+<li>模块合并：在采用模块化的项目里会有很多个模块和文件，需要构建功能把模块分类合并成一个文件。</li>
+<li>自动刷新：监听本地源代码的变化，自动重新构建、刷新浏览器。</li>
+<li>代码校验：在代码被提交到仓库前需要校验代码是否符合规范，以及单元测试是否通过。</li>
+<li>自动发布：更新完代码后，自动构建出线上发布代码并传输给发布系统。</li>
+</ul>
+</li>
+</ol>
+<p>构建其实是工程化、自动化思想在前端开发中的体现，把一系列流程用代码去实现，让代码自动化地执行这一系列复杂的流程。</p>
+<ul>
+<li>常见构建工具</li>
+</ul>
+<ol>
+<li><p>npm</p>
+<ul>
+<li>内置但是功能过于简单</li>
+</ul>
+</li>
+<li><p>Grunt</p>
+<ul>
+<li>进化版 npm ，可以灵活定义执行任务，但是集成度不高，无法做到开箱即用</li>
+</ul>
+</li>
+<li><p>Gulp</p>
+<ul>
+<li>基于流的自动化构建工具</li>
+<li>最大特点是引入了流的概念，同时提供了一系列常用的插件去处理流，流可以在插件之间传递</li>
+<li>简单，通过以下 5 个方法几乎可以覆盖所有日常</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过 gulp.task 注册任务 通过 gulp.run 执行任务 通过 gulp.watch 监听文件变化 通过 gulp.src 读文件 通过 gulp.dest 写文件</span><br></pre></td></tr></table></figure>
+
+<pre><code>- Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。但仍然集成度不高，无法做到开箱即用
+</code></pre>
+<ol start="4">
+<li><p>Fis3</p>
+<ul>
+<li>百度创造</li>
+<li>相对于 Grunt、Gulp 这些只提供基本功能的工具，Fis3 集成了 Web 开发中的常用构建功能，开始有点集成的意思</li>
+<li>常见构建功能如下</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">读写文件：通过 fis.match 读文件，release 配置文件输出路径。 资源定位：解析文件之间的依赖关系和文件位置。 文件指纹：通过 useHash 配置输出文件时给文件 URL 加上 md5 戳来优化浏览器缓存。</span><br><span class="line">文件编译：通过 parser 配置文件解析器做文件转换，例如把 ES6 编译成 ES5。 压缩资源：通过 optimizer 配置代码压缩方法。 图片合并：通过 spriter 配置合并 CSS 里导入的图片到一个文件来减少 HTTP</span><br><span class="line">请求数。</span><br></pre></td></tr></table></figure>
+
+<pre><code>- 优点：集成了各种 Web 开发所需的构建功能，配置简单开箱即用
+- 缺点：目前官方不再更新和维护，不支持最新版本的 Node.js
+</code></pre>
+<ol start="5">
+<li><p>Webpack</p>
+<ul>
+<li>打包模块化 JavaScript 的工具，在 Webpack 里一切文件皆模块，通过 Loader 转换文件，通过 Plugin 注入钩子，最后输出由多个模块组合成的文件</li>
+<li>优点</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">专注模块化打包，开箱即用一步到位 通过 Plugin 扩展，完整好用又不失灵活 使用场景不仅限于 Web 开发 社区活跃 开发体验较好</span><br></pre></td></tr></table></figure>
+
+<pre><code>- 缺点：只能用于采用模块化开发的项目
+</code></pre>
+<ol start="6">
+<li><p>Rollup</p>
+<ul>
+<li>和 Webpack 差不多，但是打包出来的代码更小更快</li>
+<li>出现在 Webpack 之后</li>
+<li>生态链不太完善</li>
+<li>功能不太完善</li>
+<li>不支持代码分割</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>webpack-dev-server 可以做什么</li>
+</ul>
+<ol>
+<li>提供 HTTP 服务</li>
+<li>监听文件的变化并自动刷新网页，做到实时预览；</li>
+<li>支持 Source Map，以方便调试。</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Webpack 原生支持上述第 2、3 点内容，再结合官方提供的开发工具 DevServer 也可以很方便地做到第 1 点。 DevServer 会启动一个 HTTP 服务器用于服务网页请求，同时会帮助启动 Webpack ，并接收</span><br><span class="line">Webpack 发出的文件更变信号，通过 WebSocket 协议自动刷新网页做到实时预览。 模块热替换:不重新加载整个网页的情况下，通过将被更新过的模块替换老的模块，再重新执行一次来实现实时预览</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>核心术语<ol>
+<li>Entry： 输入</li>
+<li>Module： 模块</li>
+<li>Chunk：代码块</li>
+<li>Loader：模块转换器</li>
+<li>Plugin：扩展插件</li>
+<li>Output：输出</li>
+</ol>
+</li>
+</ul>
+<h3 id="配置系列"><a href="#配置系列" class="headerlink" title="配置系列"></a>配置系列</h3><ul>
+<li>Entry</li>
+</ul>
+<ol>
+<li>entry 必填</li>
+<li>类型：string | array | object</li>
+</ol>
+<ul>
+<li>Output</li>
+</ul>
+<ol>
+<li><p>filename</p>
+<p>配置输出文件的名称，比如<code>static/js/[name].[contenthash:8].js</code><br>其中[name]为内置函数，除此之外还有</p>
+</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id Chunk 的唯一标识，从 0 开始 name Chunk 的名称 hash Chunk 的唯一标识的 Hash 值 chunkhash Chunk 内容的 Hash 值</span><br></pre></td></tr></table></figure>
+
+<pre><code>其中 hash 和 chunkhash 的长度是可指定的，[hash:8] 代表取8位 Hash 值，默认是20位
+</code></pre>
+<ol start="2">
+<li><p>publicPath</p>
+<p>output.path 和 output.publicPath 都支持字符串模版，内置变量只有一个：hash 常用于 CDN 场景</p>
+</li>
+</ol>
+<ul>
+<li>Module 配置如何处理模块</li>
+</ul>
+<ol>
+<li><p>rules</p>
+<p>有三种方式配置 rules</p>
+</li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">条件匹配：test、include 、exclude、loader、options 应用规则：use 重置顺序：enforce: string &#x27;pre&#x27;|&#x27;post&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>总结 配置文件支持多种类型，可以导出一个 Function，导出一个返回 Promise 的函数，也可以导出数组，数组中有多份配置 更多配置可以参考<br><a target="_blank" rel="noopener" href="https://github.com/Matthrews/webpack-demos">我的 Github</a><br><a target="_blank" rel="noopener" href="https://webpack.js.org/concepts/">Webpack 官网</a></li>
+</ul>
+<h3 id="实战系列"><a href="#实战系列" class="headerlink" title="实战系列"></a>实战系列</h3><p>按照不同场景划分成以下几类：</p>
+<h4 id="使用新语言来开发项目："><a href="#使用新语言来开发项目：" class="headerlink" title="使用新语言来开发项目："></a>使用新语言来开发项目：</h4><ol>
+<li><p>使用 ES6 语言</p>
+<p>配置 Babel 完成 ES6 转 ES5 和 polyfill 两件事 在 Webpack 中通过 Loader 去接入 Babel，同时也可以在根目录通过 <code>.babelrc</code>文件配置，这两者可以同时做作用</p>
+</li>
+<li><p>使用 TypeScript 语言</p>
+<p>配置<code>tsconfig.json</code>文件 集成 Webpack 需要解决两个问题：</p>
+<ul>
+<li>通过 Loader 把 TypeScript 转换成 JavaScript —–推荐 awesome-typescript-loader</li>
+<li>Webpack 在寻找模块对应的文件时需要尝试 ts 后缀 —-修改默认的 resolve.extensions 配置项</li>
+</ul>
+</li>
+<li><p>使用 Flow 检查器</p>
+<p>集成 Webpack 需要安装 babel-preset-flow，然后修改 <code>.babelrc</code> 配置文件，加入<code>flow</code>配置项</p>
+</li>
+<li><p>使用 SCSS 语言</p>
+<p>使用<code>sass-loader</code>，相关配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 增加对 SCSS 文件的支持</span></span><br><span class="line">        test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">        <span class="comment">// SCSS 文件的处理顺序为先 sass-loader 再 css-loader 再style-loader</span></span><br><span class="line">        use: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;sass-loader&#x27;</span>],</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">工作原理如下：</span></span><br><span class="line"><span class="string">1. sass-loader把SCSS代码转成CSS后交给css-loader</span></span><br><span class="line"><span class="string">2. css-loader会找出CSS代码中的 @import 和 url() 这样的导入语句，告诉 Webpack 依赖这些资源。同时还支持 CSS Modules、压缩 CSS 等功能。处理完后再把结果交给 style-loader 去处理。</span></span><br><span class="line"><span class="string">3. style-loader 会把 CSS 代码转换成字符串后，注入到 JavaScript 代码中去，通过 JavaScript 去给 DOM 增加样式</span></span><br><span class="line"><span class="string">4. 如果你想把 CSS 代码提取到一个单独的文件而不是和 JavaScript 混在一起，可以使用ExtractTextPlugin</span></span><br><span class="line"><span class="string">5. 需要安装sass-loader css-loader style-loader node-sass(sass-loader依赖项)</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用 PostCSS</p>
+<p>需要安装 postcss-loader css-loader style-loader postcss-cssnext(postcss 插件)</p>
+</li>
+</ol>
+<h5 id="使用新框架来开发项目："><a href="#使用新框架来开发项目：" class="headerlink" title="使用新框架来开发项目："></a>使用新框架来开发项目：</h5><ol start="6">
+<li><p>使用 React 框架</p>
+<p>安装 babel-preset-react 转换 JSX 和 Class 等 React 语法 修改 <code>.babelrc</code> 配置文件加入 <code>react</code> Presets</p>
+</li>
+<li><p>使用 Vue 框架</p>
+</li>
+<li><p>使用 Angular2 框架</p>
+</li>
+</ol>
+<h5 id="用-Webpack-构建单页应用："><a href="#用-Webpack-构建单页应用：" class="headerlink" title="用 Webpack 构建单页应用："></a>用 Webpack 构建单页应用：</h5><ol start="9">
+<li>为单页应用生成 HTML</li>
+<li>管理多个单页应用</li>
+</ol>
+<h5 id="用-Webpack-构建不同运行环境的项目："><a href="#用-Webpack-构建不同运行环境的项目：" class="headerlink" title="用 Webpack 构建不同运行环境的项目："></a>用 Webpack 构建不同运行环境的项目：</h5><ol start="11">
+<li>构建同构应用</li>
+<li>构建 Electron 应用 13 . 构建 Npm 模块</li>
+<li>构建离线应用</li>
+</ol>
+<h5 id="Webpack-结合其它工具搭配使用，各取所长："><a href="#Webpack-结合其它工具搭配使用，各取所长：" class="headerlink" title="Webpack 结合其它工具搭配使用，各取所长："></a>Webpack 结合其它工具搭配使用，各取所长：</h5><ol start="15">
+<li>搭配 Npm Script</li>
+<li>检查代码</li>
+<li>通过 Node.js API 启动 Webpack</li>
+<li>使用 Webpack Dev Middleware</li>
+</ol>
+<h5 id="用-Webpack-加载特殊类型的资源："><a href="#用-Webpack-加载特殊类型的资源：" class="headerlink" title="用 Webpack 加载特殊类型的资源："></a>用 Webpack 加载特殊类型的资源：</h5><ol start="19">
+<li>加载图片</li>
+<li>加载 SVG</li>
+<li>加载 Source Map</li>
+<li>实战总结</li>
+</ol>
+<h3 id="优化系列"><a href="#优化系列" class="headerlink" title="优化系列"></a>优化系列</h3><h3 id="原理系列"><a href="#原理系列" class="headerlink" title="原理系列"></a>原理系列</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">matthew</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://matthrews.github.io/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/[%E5%90%B4%E6%B5%A9%E9%BA%9F]%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/">https://matthrews.github.io/bloger/2021/02/01/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/[%E5%90%B4%E6%B5%A9%E9%BA%9F]%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Webpack/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/bloger/tags/Webpack/">Webpack</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/bloger/2021/02/01/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">HTTP 权威指南 阅读笔记</div></div></a></div><div class="next-post pull-right"><a href="/bloger/2020/12/20/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Webpack源码浅析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/bloger/2021/04/05/构建工具/Webpack5新特性/" title="Webpack5新特性"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-05</div><div class="title">Webpack5新特性</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="this.onerror=null;this.src='/bloger/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">matthew</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Matthrews"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Matthrews" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:matthrews@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">即是最平凡的人，也得要为他那个世界的存在而战斗。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA-Webpack"><span class="toc-number">1.</span> <span class="toc-text">深入浅出 Webpack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97"><span class="toc-number">1.1.</span> <span class="toc-text">入门系列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">模块化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.2.</span> <span class="toc-text">构建工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E5%88%97"><span class="toc-number">1.2.</span> <span class="toc-text">配置系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97"><span class="toc-number">1.3.</span> <span class="toc-text">实战系列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B0%E8%AF%AD%E8%A8%80%E6%9D%A5%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">1.3.1.</span> <span class="toc-text">使用新语言来开发项目：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B0%E6%A1%86%E6%9E%B6%E6%9D%A5%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">使用新框架来开发项目：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8-Webpack-%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">用 Webpack 构建单页应用：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8-Webpack-%E6%9E%84%E5%BB%BA%E4%B8%8D%E5%90%8C%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">用 Webpack 构建不同运行环境的项目：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Webpack-%E7%BB%93%E5%90%88%E5%85%B6%E5%AE%83%E5%B7%A5%E5%85%B7%E6%90%AD%E9%85%8D%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%90%84%E5%8F%96%E6%89%80%E9%95%BF%EF%BC%9A"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">Webpack 结合其它工具搭配使用，各取所长：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8-Webpack-%E5%8A%A0%E8%BD%BD%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%B5%84%E6%BA%90%EF%BC%9A"><span class="toc-number">1.3.1.5.</span> <span class="toc-text">用 Webpack 加载特殊类型的资源：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%B3%BB%E5%88%97"><span class="toc-number">1.4.</span> <span class="toc-text">优化系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E7%B3%BB%E5%88%97"><span class="toc-number">1.5.</span> <span class="toc-text">原理系列</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2022/02/14/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9F/go/go/" title="Go 语言学习笔记">Go 语言学习笔记</a><time datetime="2022-02-13T16:00:00.000Z" title="Created 2022-02-14 00:00:00">2022-02-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E9%97%AD%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/" title="闭包是什么？">闭包是什么？</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8/" title="数组常见方法使用">数组常见方法使用</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/23/%E5%9B%BE%E8%A7%A3Google%20V8/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F/" title="No title">No title</a><time datetime="2021-08-23T04:52:09.872Z" title="Created 2021-08-23 12:52:09">2021-08-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/10/UI%E6%A1%86%E6%9E%B6/%E7%B2%BE%E7%AE%80%E7%89%88React%E6%BA%90%E7%A0%81%E6%89%8B%E7%A8%BF/" title="精简版React源码手稿">精简版React源码手稿</a><time datetime="2021-08-10T01:21:38.167Z" title="Created 2021-08-10 09:21:38">2021-08-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By matthew</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/bloger/js/utils.js"></script><script src="/bloger/js/main.js"></script><script src="/bloger/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Wei8C4JdKTzzmEUzuQQghyzQ-gzGzoHsz',
+      appKey: 'x7JbNFwj9w3z0Kva0QlnTRJM',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

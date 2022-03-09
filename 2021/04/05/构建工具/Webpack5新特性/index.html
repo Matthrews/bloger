@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh-CN | zh-TW | en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Webpack5新特性 | Oliver</title><meta name="keywords" content="Webpack"><meta name="author" content="matthew"><meta name="copyright" content="matthew"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Webpack5 新特性整体方向 尝试使用持久性缓存来提高构建性能 尝试使用更好的算法和默认值来改进长期缓存 尝试使用更好的 Tree Shaking 和代码生成来改善包大小 尝试改善与网络平台的兼容性 尝试在不引入任何破坏性变化的情况下，改善 v4 的内部结构 尝试引入一些突破性变化为未来做准备  不再为 Node.js 模块自动引用 Polyfills webpack4浏览器下node:cry">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack5新特性">
+<meta property="og:url" content="https://matthrews.github.io/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Oliver">
+<meta property="og:description" content="Webpack5 新特性整体方向 尝试使用持久性缓存来提高构建性能 尝试使用更好的算法和默认值来改进长期缓存 尝试使用更好的 Tree Shaking 和代码生成来改善包大小 尝试改善与网络平台的兼容性 尝试在不引入任何破坏性变化的情况下，改善 v4 的内部结构 尝试引入一些突破性变化为未来做准备  不再为 Node.js 模块自动引用 Polyfills webpack4浏览器下node:cry">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-04-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-11T01:37:06.084Z">
+<meta property="article:author" content="matthew">
+<meta property="article:tag" content="Webpack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/bloger/img/favicon.png"><link rel="canonical" href="https://matthrews.github.io/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/bloger/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/bloger/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-08-11 09:37:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/bloger/">Oliver</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloger/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bloger/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/bloger/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bloger/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/bloger/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Webpack5新特性</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-04-04T16:00:00.000Z" title="Created 2021-04-05 00:00:00">2021-04-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-08-11T01:37:06.084Z" title="Updated 2021-08-11 09:37:06">2021-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/bloger/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">构建工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>5min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Webpack5新特性"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Webpack5-新特性"><a href="#Webpack5-新特性" class="headerlink" title="Webpack5 新特性"></a>Webpack5 新特性</h2><h3 id="整体方向"><a href="#整体方向" class="headerlink" title="整体方向"></a>整体方向</h3><ul>
+<li>尝试使用持久性缓存来提高构建性能</li>
+<li>尝试使用更好的算法和默认值来改进长期缓存</li>
+<li>尝试使用更好的 Tree Shaking 和代码生成来改善包大小</li>
+<li>尝试改善与网络平台的兼容性</li>
+<li>尝试在不引入任何破坏性变化的情况下，改善 v4 的内部结构</li>
+<li>尝试引入一些突破性变化为未来做准备</li>
+</ul>
+<h3 id="不再为-Node-js-模块自动引用-Polyfills"><a href="#不再为-Node-js-模块自动引用-Polyfills" class="headerlink" title="不再为 Node.js 模块自动引用 Polyfills"></a>不再为 Node.js 模块自动引用 <code>Polyfills</code></h3><ol>
+<li><code>webpack4</code>浏览器下<code>node:crypto</code>可用,是因为<code>webpack4</code>使用了官方<code>polyfill: crypto-browserify</code>，但是打包下来<code>bundle.js</code>文件<code>2.2MB</code><br>（未压缩），不包含<code>node:crypto</code>打包下来<code>bundle.js</code>也就<code>1020KiB</code></li>
+<li><code>webpack5</code>浏览器下<code>node:crypto</code>不可用<br><img src="https://raw.githubusercontent.com/Matthrews/rfzhu_blogs/main/%E5%9B%BE%E7%89%87/webpack5-nopolyfill.png?token=AHD3VNX677UO5DF4B6SAD4LAQAVEO" alt="webpack5"></li>
+<li>建议</li>
+</ol>
+<ul>
+<li>尽量使用前端兼容模块，比如使用<code>crypto-js</code>代替<code>crypto</code></li>
+<li>手动添加 <code>polyfill</code>，参考上图提示</li>
+<li>在<code> package.json</code> 中添加 <code>browser</code> 字段，使<code>package</code> 与前端兼容</li>
+</ul>
+<ol start="4">
+<li><a target="_blank" rel="noopener" href="https://github.com/Matthrews/webpack5.vs.webpack4/tree/main/demo2">源码</a></li>
+</ol>
+<h3 id="长期缓存"><a href="#长期缓存" class="headerlink" title="长期缓存"></a>长期缓存</h3><ol>
+<li>确定的 Chunk、模块 ID 和导出名称 新增长期缓存算法，生产环境默认启用<br><code>chunkIds: &quot;deterministic&quot; moduleIds: &quot;deterministic&quot; mangleExports: &quot;deterministic&quot;</code></li>
+<li>真正的内容哈希 当使用<code>[contenthash]</code>时，Webpack 5 将使用真正的文件内容哈希值。之前它 “只” 使用内部结构的哈希值。 当只有注释被修改或变量被重命名时，这对长期缓存会有积极影响。这些变化在压缩后是不可见的</li>
+</ol>
+<h3 id="开发支持"><a href="#开发支持" class="headerlink" title="开发支持"></a>开发支持</h3><ol>
+<li><p>命名代码块 ID 默认启用代码块 ID 算法，开发模式下生成的模块名称可读，便于调试，就不需要<code>import(/* webpackChunkName: &quot;name&quot; */ &quot;module&quot;)</code>来调试了<br>此外，可以在生产环境中使用<code>chunkIds: &quot;named&quot;</code></p>
+</li>
+<li><p>模块联邦 Webpack 可以通过 DLL 或者 Externals 可以在同一个应用里做代码共享 Common Chunk，而模块联邦可以使得跨应用间真正做到模块共享</p>
+</li>
+</ol>
+<h3 id="支持崭新的-Web-平台特性"><a href="#支持崭新的-Web-平台特性" class="headerlink" title="支持崭新的 Web 平台特性"></a>支持崭新的 Web 平台特性</h3><ol>
+<li>支持崭新的 Web 平台特性 内置资源模块支持，支持<code>import</code>和<code>URL</code>方式，后者是新方式，举个例子</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old</span></span><br><span class="line"><span class="keyword">import</span> url <span class="keyword">from</span> <span class="string">&quot;./image.png&quot;</span>;</span><br><span class="line"><span class="comment">// new opts</span></span><br><span class="line"><span class="keyword">new</span> URL(<span class="string">&quot;./image.png&quot;</span>, <span class="keyword">import</span>.meta.url);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>原生 Worker 支持<br><code>new Worker(new URL(&quot;./worker.js&quot;, import.meta.url))</code></p>
+</li>
+<li><p>URI Webpack 5 支持在请求中处理协议</p>
+</li>
+</ol>
+<ul>
+<li>支持<code>data</code></li>
+<li>支持<code>file</code>：需要通过<code>new webpack.experiments.s schemesHttp(s)UriPlugin()</code>选择加入</li>
+<li>支持<code>https</code></li>
+</ul>
+<ol start="4">
+<li><p>异步模块 支持异步模块——基于异步和 Promise 的模块，比如<code>import(&quot;lodash&quot;)</code></p>
+</li>
+<li><p>外部资源 增加了一些外部资源类型，比如 promise、import、module 和 script</p>
+</li>
+</ol>
+<h3 id="支持全新的-Node-js-生态特性"><a href="#支持全新的-Node-js-生态特性" class="headerlink" title="支持全新的 Node.js 生态特性"></a>支持全新的 Node.js 生态特性</h3><ol>
+<li><p>现在支持 package.json 中的 exports 和 imports 字段</p>
+</li>
+<li><p>原生支持 Yarn PnP</p>
+</li>
+</ol>
+<h3 id="开发体验"><a href="#开发体验" class="headerlink" title="开发体验"></a>开发体验</h3><ol>
+<li><p>经过优化的构建目标 Webpack 5 允许传递一个目标列表，并且支持目标的版本。为 webpack 提供它需要确定的所有信息：代码加载机制以及支持的语法</p>
+</li>
+<li><p>Stats 改进了统计测试格式的可读性和冗余性</p>
+</li>
+<li><p>进度 对 ProgressPlugin 做了一些改进，它被 CLI 在参数 –progress 开启时使用，但也可以作为插件手动使用</p>
+</li>
+<li><p>自动添加唯一命名 在 webpack 4 中，多个 webpack 运行时可能会在同一个 HTML 页面上发生冲突，因为它们使用同一个全局变量进行代码块加载。为了解决这个问题，需要为 output.jsonpFunction<br>配置提供一个自定义的名称</p>
+</li>
+<li><p>自动添加公共路径 Webpack 5 会在可能的情况下自动确定 output.publicPath。</p>
+</li>
+<li><p>Typescript 类型 Webpack 5 从源码中生成 typescript 类型，并通过 npm 包暴露它们</p>
+</li>
+</ol>
+<h3 id="构建优化"><a href="#构建优化" class="headerlink" title="构建优化"></a>构建优化</h3><ol>
+<li><p>嵌套的 tree-shaking webpack 现在能够跟踪对导出的嵌套属性的访问。这可以改善重新导出命名空间对象时的 Tree Shaking</p>
+</li>
+<li><p>内部模块 tree-shaking webpack 5 有一个新的选项 optimization.innerGraph，在生产模式下是默认启用的，它可以对模块中的标志进行分析，找出导出和引用之间的依赖关系。</p>
+</li>
+<li><p>CommonJs Tree Shaking 对 CommonJs 导出和 require() 调用时的导出使用分析</p>
+</li>
+<li><p>副作用分析 在 package.json 中的 “sideEffects” 标志允许手动将模块标记为无副作用，这就允许在不使用时放弃它们。</p>
+</li>
+</ol>
+<p>webpack 5 也可以根据对源代码的静态分析，自动将模块标记为无副作用</p>
+<ol start="5">
+<li><p>模块合并 模块合并也可以在每个运行时工作，允许每个运行时进行不同的合并</p>
+</li>
+<li><p>改进代码生成</p>
+</li>
+<li><p>改进 target 配置</p>
+</li>
+<li><p>代码块拆分与模块大小</p>
+</li>
+</ol>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol>
+<li>持久缓存 支持文件系统缓存。它是可选的，可以通过以下配置启用：</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  cache: &#123;</span><br><span class="line">    <span class="comment">// 1. 将缓存类型设置为文件系统</span></span><br><span class="line">    type: <span class="string">&quot;filesystem&quot;</span>,</span><br><span class="line"></span><br><span class="line">    buildDependencies: &#123;</span><br><span class="line">      <span class="comment">// 2. 将你的 config 添加为 buildDependency，以便在改变 config 时获得缓存无效</span></span><br><span class="line">      config: [__filename],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们</span></span><br><span class="line">      <span class="comment">// 注意，webpack、加载器和所有从你的配置中引用的模块都会被自动添加</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编译器闲置和关闭 编译器现在需要在使用后关闭。编译器现在会进入和离开空闲状态，并且有这些状态的钩子。插件可能会使用这些钩子来做不重要的工作</li>
+</ol>
+<p>在使用 Node.js API 时，一定要在完成工作后调用 Compiler.close。</p>
+<ol start="3">
+<li>文件生成 所以 webpack 现在会检查输出目录中现有的文件，并将其内容与内存中的输出文件进行比较。只有当文件被改变时，它才会写入文件。 这只在第一次构建时进行。任何增量构建都会在运行中的 webpack<br>进程中生成新的资产时写入文件</li>
+</ol>
+<h3 id="长期未解决的问题"><a href="#长期未解决的问题" class="headerlink" title="长期未解决的问题"></a>长期未解决的问题</h3><ol>
+<li>单一文件目标的代码分割 只允许启动单个文件的目标（如 node、WebWorker、electron main）现在支持运行时自动加载引导所需的依赖代码片段</li>
+</ol>
+<p>这允许对这些目标使用 <code>chunks: &quot;all&quot;</code> 和 <code>optimization.runtimeChunk</code></p>
+<ol start="2">
+<li>解析器更新</li>
+</ol>
+<h3 id="未来计划"><a href="#未来计划" class="headerlink" title="未来计划"></a>未来计划</h3><ol>
+<li>实验特性</li>
+</ol>
+<ul>
+<li>异步 WebAssembly</li>
+<li>顶层的 Await</li>
+</ul>
+<ol start="2">
+<li>最小 Node.js 版本 最低支持的 Node.js 版本从 6 增加到 10.13.0(LTS)</li>
+</ol>
+<h3 id="配置变更"><a href="#配置变更" class="headerlink" title="配置变更"></a>配置变更</h3><h3 id="重大内部变更"><a href="#重大内部变更" class="headerlink" title="重大内部变更"></a>重大内部变更</h3><ol>
+<li><p>缓存插件更新 增加了一个带有插件接口的 Cache 类。该类可用于写入和读取缓存。根据配置的不同，不同的插件可以为缓存添加功能。MemoryCachePlugin 增加了内存缓存功能。FileCachePlugin<br>增加了持久性（文件系统）缓存</p>
+</li>
+<li><p>从数组到集合(Set)</p>
+</li>
+<li><p>模块热替换</p>
+</li>
+<li><p>全新的监听 它之前使用的是 chokidar 和原生依赖 fsevents（仅在 macOS 上）。现在它在只基于原生的 Node.js 中的 fs</p>
+</li>
+</ol>
+<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><ul>
+<li>缓存</li>
+<li>Tree Shaking</li>
+<li>拥抱 Node.js</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">matthew</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://matthrews.github.io/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/">https://matthrews.github.io/bloger/2021/04/05/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack5%E6%96%B0%E7%89%B9%E6%80%A7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/bloger/tags/Webpack/">Webpack</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/bloger/2021/04/10/UI%E6%A1%86%E6%9E%B6/React%E4%B8%AD%E7%9A%84%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">React 中的高阶组件及其应用场景</div></div></a></div><div class="next-post pull-right"><a href="/bloger/2021/04/01/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96----%E7%BD%91%E7%BB%9C%E7%AF%87/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/bloger/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">前端性能优化----网络篇</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/bloger/2021/02/01/构建工具/[吴浩麟]深入浅出 Webpack/" title="深入浅出 Webpack 阅读笔记"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-01</div><div class="title">深入浅出 Webpack 阅读笔记</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Matthrews/zm_cdn/images/logo.jpg" onerror="this.onerror=null;this.src='/bloger/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">matthew</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/bloger/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/tags/"><div class="headline">Tags</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/bloger/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Matthrews"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Matthrews" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:matthrews@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">即是最平凡的人，也得要为他那个世界的存在而战斗。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Webpack5-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">Webpack5 新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%96%B9%E5%90%91"><span class="toc-number">1.1.</span> <span class="toc-text">整体方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%86%8D%E4%B8%BA-Node-js-%E6%A8%A1%E5%9D%97%E8%87%AA%E5%8A%A8%E5%BC%95%E7%94%A8-Polyfills"><span class="toc-number">1.2.</span> <span class="toc-text">不再为 Node.js 模块自动引用 Polyfills</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%BF%E6%9C%9F%E7%BC%93%E5%AD%98"><span class="toc-number">1.3.</span> <span class="toc-text">长期缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%94%AF%E6%8C%81"><span class="toc-number">1.4.</span> <span class="toc-text">开发支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%B4%AD%E6%96%B0%E7%9A%84-Web-%E5%B9%B3%E5%8F%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.5.</span> <span class="toc-text">支持崭新的 Web 平台特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%85%A8%E6%96%B0%E7%9A%84-Node-js-%E7%94%9F%E6%80%81%E7%89%B9%E6%80%A7"><span class="toc-number">1.6.</span> <span class="toc-text">支持全新的 Node.js 生态特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C"><span class="toc-number">1.7.</span> <span class="toc-text">开发体验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E4%BC%98%E5%8C%96"><span class="toc-number">1.8.</span> <span class="toc-text">构建优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">1.9.</span> <span class="toc-text">性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%BF%E6%9C%9F%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.10.</span> <span class="toc-text">长期未解决的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E8%AE%A1%E5%88%92"><span class="toc-number">1.11.</span> <span class="toc-text">未来计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4"><span class="toc-number">1.12.</span> <span class="toc-text">配置变更</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%A4%A7%E5%86%85%E9%83%A8%E5%8F%98%E6%9B%B4"><span class="toc-number">1.13.</span> <span class="toc-text">重大内部变更</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">重点</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2022/02/14/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9F/go/go/" title="Go 语言学习笔记">Go 语言学习笔记</a><time datetime="2022-02-13T16:00:00.000Z" title="Created 2022-02-14 00:00:00">2022-02-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E9%97%AD%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/" title="闭包是什么？">闭包是什么？</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/24/JavaScript/%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8/" title="数组常见方法使用">数组常见方法使用</a><time datetime="2021-08-23T16:00:00.000Z" title="Created 2021-08-24 00:00:00">2021-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/23/%E5%9B%BE%E8%A7%A3Google%20V8/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F/" title="No title">No title</a><time datetime="2021-08-23T04:52:09.872Z" title="Created 2021-08-23 12:52:09">2021-08-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloger/2021/08/10/UI%E6%A1%86%E6%9E%B6/%E7%B2%BE%E7%AE%80%E7%89%88React%E6%BA%90%E7%A0%81%E6%89%8B%E7%A8%BF/" title="精简版React源码手稿">精简版React源码手稿</a><time datetime="2021-08-10T01:21:38.167Z" title="Created 2021-08-10 09:21:38">2021-08-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By matthew</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/bloger/js/utils.js"></script><script src="/bloger/js/main.js"></script><script src="/bloger/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Wei8C4JdKTzzmEUzuQQghyzQ-gzGzoHsz',
+      appKey: 'x7JbNFwj9w3z0Kva0QlnTRJM',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
