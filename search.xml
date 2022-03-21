@@ -2,12 +2,12 @@
 <search>
   <entry>
     <title></title>
-    <url>/bloger/2021/08/23/%E5%9B%BE%E8%A7%A3Google%20V8/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F/</url>
+    <url>/bloger/2022/03/11/%E5%9B%BE%E8%A7%A3Google%20V8/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/bloger/2021/05/04/hello-world/</url>
+    <url>/bloger/2022/03/11/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -24,8 +24,46 @@
 ]]></content>
   </entry>
   <entry>
+    <title>模块化发展</title>
+    <url>/bloger/2021/08/25/%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8F%91%E5%B1%95/</url>
+    <content><![CDATA[<h1 id="模块化发展"><a href="#模块化发展" class="headerlink" title="模块化发展"></a>模块化发展</h1><blockquote>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/108217164">https://zhuanlan.zhihu.com/p/108217164</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>模块标准</tag>
+        <tag>TreeShaking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Electron Forge 入门</title>
+    <url>/bloger/2021/04/12/Electron/%5B%E8%AF%91%5DElectron%20Forge%20%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="Electron-Forge-入门"><a href="#Electron-Forge-入门" class="headerlink" title="Electron Forge 入门"></a>Electron Forge 入门</h1><blockquote>
+<p>Electron Forge 是一个集创建，发布和安装现代 Electron 应用于一身的完备工具链。</p>
+</blockquote>
+<hr>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>首先初始化一个项目</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line">yarn create electron-app my-app</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line">npx create-electron-app my-app</span><br></pre></td></tr></table></figure>
+
+<p>现在你的 <code>my-app</code>文件夹下面就有了一个超级小的 Electron 应用模板。进入 <code>my-app</code>文件夹，启动项目，你就可以开始开发了。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line"><span class="built_in">cd</span> my-app</span><br><span class="line">yarn start</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line"><span class="built_in">cd</span> my-app</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<h2 id="构建发行版"><a href="#构建发行版" class="headerlink" title="构建发行版"></a>构建发行版</h2><p>现在你可以把你的应用和全世界分享。当你运行<code>make</code> 脚本时， Electron Forge<br>会生成对应平台的发行版。了解你可以构建的发行版类型，请参考<a href="https://www.electronforge.io/config/makers">Makers </a>文档。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line">yarn make</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line">npm run make</span><br></pre></td></tr></table></figure>
+
+<h2 id="高阶使用"><a href="#高阶使用" class="headerlink" title="高阶使用"></a>高阶使用</h2><p>有了一个入门级的应用，你就可以构建发行版了。了解更多高阶功能，可以参考：</p>
+<p><a href="https://www.electronforge.io/config/publishers">Publishers</a></p>
+<p><a href="https://www.electronforge.io/advanced/debugging">Debugging your app</a></p>
+<p><a href="https://www.electronforge.io/config/plugins/webpack">Webpack support</a></p>
+<p><a href="https://www.electronforge.io/advanced/extending-electron-forge">Writing your own makers, publishers and plugins</a></p>
+]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+  </entry>
+  <entry>
     <title>How to build an Electron app using Create React App and Electron Builder</title>
-    <url>/bloger/2021/07/31/Electron/%5B%E8%AF%91%5D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Create%20React%20App%E5%92%8CElectron%20Builder%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAElectron%E9%A1%B9%E7%9B%AE/</url>
+    <url>/bloger/2022/03/11/Electron/%5B%E8%AF%91%5D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Create%20React%20App%E5%92%8CElectron%20Builder%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAElectron%E9%A1%B9%E7%9B%AE/</url>
     <content><![CDATA[<h1 id="如何使用-Create-React-App-和-Electron-Builder-构建-Electron-应用"><a href="#如何使用-Create-React-App-和-Electron-Builder-构建-Electron-应用" class="headerlink" title="如何使用 Create React App 和 Electron Builder 构建 Electron 应用"></a>如何使用 Create React App 和 Electron Builder 构建 Electron 应用</h1><p><img src="https://finbits.io/images/blog/electron-react.jpg" alt="Electron-React"></p>
 <p>最近我决定做一个桌面应用来下载和保存我的 Google Photos。因为我曾被丢失所有照片折磨够了。虽然 Google 本身有一些选项可以配置实现，但是实践下来貌似都有问题。</p>
 <p>如果你想使用这款应用，你可以在这里下载 <a href="https://finbits.io/downloads/photosdownloader-0.1.1.dmg">OSX</a><br>或者 <a href="https://finbits.io/downloads/photosdownloader-0.1.1.exe">WIN</a>。</p>
@@ -120,32 +158,6 @@
 <p>好了，该你上手实践了。</p>
 <p>源码在 <a href="https://github.com/rgfindl/electron-cra-boilerplate">这里</a></p>
 <p>希望这这篇博客对你有所帮助。 Bye!</p>
-]]></content>
-      <categories>
-        <category>Electron</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Electron Forge 入门</title>
-    <url>/bloger/2021/04/12/Electron/%5B%E8%AF%91%5DElectron%20Forge%20%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h1 id="Electron-Forge-入门"><a href="#Electron-Forge-入门" class="headerlink" title="Electron Forge 入门"></a>Electron Forge 入门</h1><blockquote>
-<p>Electron Forge 是一个集创建，发布和安装现代 Electron 应用于一身的完备工具链。</p>
-</blockquote>
-<hr>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>首先初始化一个项目</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line">yarn create electron-app my-app</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line">npx create-electron-app my-app</span><br></pre></td></tr></table></figure>
-
-<p>现在你的 <code>my-app</code>文件夹下面就有了一个超级小的 Electron 应用模板。进入 <code>my-app</code>文件夹，启动项目，你就可以开始开发了。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line"><span class="built_in">cd</span> my-app</span><br><span class="line">yarn start</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line"><span class="built_in">cd</span> my-app</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
-
-<h2 id="构建发行版"><a href="#构建发行版" class="headerlink" title="构建发行版"></a>构建发行版</h2><p>现在你可以把你的应用和全世界分享。当你运行<code>make</code> 脚本时， Electron Forge<br>会生成对应平台的发行版。了解你可以构建的发行版类型，请参考<a href="https://www.electronforge.io/config/makers">Makers </a>文档。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with yarn</span></span><br><span class="line">yarn make</span><br><span class="line"><span class="comment"># with npm</span></span><br><span class="line">npm run make</span><br></pre></td></tr></table></figure>
-
-<h2 id="高阶使用"><a href="#高阶使用" class="headerlink" title="高阶使用"></a>高阶使用</h2><p>有了一个入门级的应用，你就可以构建发行版了。了解更多高阶功能，可以参考：</p>
-<p><a href="https://www.electronforge.io/config/publishers">Publishers</a></p>
-<p><a href="https://www.electronforge.io/advanced/debugging">Debugging your app</a></p>
-<p><a href="https://www.electronforge.io/config/plugins/webpack">Webpack support</a></p>
-<p><a href="https://www.electronforge.io/advanced/extending-electron-forge">Writing your own makers, publishers and plugins</a></p>
 ]]></content>
       <categories>
         <category>Electron</category>
@@ -248,86 +260,6 @@
 ]]></content>
       <categories>
         <category>NodeJS</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>ES6相关</title>
-    <url>/bloger/2021/08/24/JavaScript/ES6%E7%9B%B8%E5%85%B3/</url>
-    <content><![CDATA[<h1 id="ES6-相关"><a href="#ES6-相关" class="headerlink" title="ES6 相关"></a>ES6 相关</h1><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><p>Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程</p>
-<p>可以这样理解，Proxy 就是在目标对象之前设置的一层拦截,外界想要访问都要经过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。</p>
-<p>Proxy 在这里可以理解为代理器</p>
-<p>声明： const proxy = new Proxy(target, handler)</p>
-<ul>
-<li>target: 拦截的对象</li>
-<li>handler: 定义拦截的方法</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li>get(): 拦截对象属性的读取</li>
-<li>set(): 拦截对象设置属性,返回一个布尔值</li>
-<li>has(): 拦截 propKey in proxy 的操作，返回一个布尔值</li>
-<li>ownKeys(): 拦截对象属性遍历，返回一个数组</li>
-<li>deleteProperty()：拦截 delete proxy[propKey] 的操作，返回一个布尔值()</li>
-<li>apply()：拦截函数的调用，call 和 apply 操作</li>
-<li>construct()：拦截 new 命令，返回一个对象: 拦截 new 命令，返回一个对象</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  name: <span class="string">&quot;oliver&quot;</span>,</span><br><span class="line">  time: <span class="string">&quot;2022-01-27&quot;</span>,</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="comment">//get()</span></span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">target, key</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> target[key].replace(<span class="string">&quot;2022&quot;</span>, <span class="string">&quot;2015&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">//set()</span></span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">target, key, value</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key === <span class="string">&quot;name&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> (target[key] = value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> target[key];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// has()</span></span><br><span class="line">  <span class="function"><span class="title">has</span>(<span class="params">target, key</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key === <span class="string">&quot;name&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> target[key];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// deleteProperty()</span></span><br><span class="line">  <span class="function"><span class="title">deleteProperty</span>(<span class="params">target, key</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.indexOf(<span class="string">&quot;_&quot;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">delete</span> target[key];</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> target[key];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ownKeys()</span></span><br><span class="line">  <span class="function"><span class="title">ownKeys</span>(<span class="params">target</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.keys(target).filter(<span class="function">(<span class="params">item</span>) =&gt;</span> item != <span class="string">&quot;time&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(data.time); <span class="comment">// 2015-01-27</span></span><br><span class="line"></span><br><span class="line">data.time = <span class="string">&quot;2020&quot;</span>;</span><br><span class="line">data.name = <span class="string">&quot;React&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(data); <span class="comment">//Proxy &#123;name: &#x27;React&#x27;, time: &#x27;2022-01-27&#x27;, value: 1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 拦截has()</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;name&quot;</span> <span class="keyword">in</span> data); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;time&quot;</span> <span class="keyword">in</span> data); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除deleteProperty()</span></span><br><span class="line"><span class="keyword">delete</span> monitor.time; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历 ownKeys()</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(data)); <span class="comment">//[&#x27;name&#x27;, &#x27;value&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//apply()</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> num = <span class="number">0</span>;</span><br><span class="line">  args.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    num += item;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sum = <span class="keyword">new</span> <span class="built_in">Proxy</span>(sum, &#123;</span><br><span class="line">  <span class="function"><span class="title">apply</span>(<span class="params">target, ctx, args</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> target(...args) * <span class="number">2</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 6</span></span><br><span class="line"><span class="built_in">console</span>.log(sum.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 12</span></span><br><span class="line"><span class="built_in">console</span>.log(sum.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])); <span class="comment">// 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//constructor()</span></span><br><span class="line"><span class="keyword">let</span> User = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">User = <span class="keyword">new</span> <span class="built_in">Proxy</span>(User, &#123;</span><br><span class="line">  <span class="function"><span class="title">construct</span>(<span class="params">target, args, newTarget</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> target(...args);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> User(<span class="string">&quot;oliver&quot;</span>)); <span class="comment">// User &#123;name: &#x27;oliver&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>常见手写方法</title>
-    <url>/bloger/2021/08/28/JavaScript/%E5%B8%B8%E8%A7%81%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<h1 id="常见手写方法"><a href="#常见手写方法" class="headerlink" title="常见手写方法"></a>常见手写方法</h1><h2 id="防抖函数"><a href="#防抖函数" class="headerlink" title="防抖函数"></a>防抖函数</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 防抖debounce</span></span><br><span class="line"><span class="comment">// 原理：一定时间内连续触发的事件只在最后执行一次</span></span><br><span class="line"><span class="comment">// 使用场景：短信验证码，提交表单，搜索， 输入，resize等</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timeout = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回一个函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 清楚前一个timeout</span></span><br><span class="line">    <span class="built_in">clearTimeout</span>(timeout);</span><br><span class="line"></span><br><span class="line">    timeout = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      func.apply(<span class="built_in">this</span>, argrments);</span><br><span class="line">    &#125;, delay);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="节流函数"><a href="#节流函数" class="headerlink" title="节流函数"></a>节流函数</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 节流throttle</span></span><br><span class="line"><span class="comment">// 原理：每隔一段时间，只执行一次函数</span></span><br><span class="line"><span class="comment">// 使用场景：scroll, load, input, search, video</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> canNext = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回一个函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!canNext) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    canNext = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      canNext = <span class="literal">true</span>;</span><br><span class="line">    &#125;, delay);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>JSON.parse(JSON.stringify) 或者 递归克隆</p>
-<p>前者仅支持 object, array, string, number, true, false, null</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 参考: https://github.com/Matthrews/node_study/blob/main/%E6%89%8B%E5%86%99%E6%BA%90%E7%A0%81/Object/deepCopy/note.md</span></span><br><span class="line"><span class="comment">// TODO cache会越来愈多，cache应该只是和对象相关的，解决方法是将deepClone方法卸载对象Cloner里面，cache作为Cloner属性存在</span></span><br><span class="line"><span class="keyword">const</span> cache = [];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> cacheDist = findCache(source);</span><br><span class="line">    <span class="keyword">if</span> (cacheDist) &#123;</span><br><span class="line">      <span class="keyword">return</span> cacheDist;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> dist;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">        dist = [];</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">Function</span>) &#123;</span><br><span class="line">        dist = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> source.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">        dist = <span class="keyword">new</span> <span class="built_in">RegExp</span>(source.source, source.flags);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">Date</span>) &#123;</span><br><span class="line">        dist = <span class="keyword">new</span> <span class="built_in">Date</span>(source);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        dist = &#123;&#125;;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      cache.push([source, dist]);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> sourceKey <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source.hasOwnProperty(sourceKey)) &#123;</span><br><span class="line">          dist[sourceKey] = deepClone(source[sourceKey]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> source;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findCache</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> source_dist <span class="keyword">of</span> cache) &#123;</span><br><span class="line">    <span class="keyword">if</span> (source_dist[<span class="number">0</span>] === source) &#123;</span><br><span class="line">      <span class="keyword">return</span> source_dist[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="深比较"><a href="#深比较" class="headerlink" title="深比较"></a>深比较</h2><p>JSON.stringify 或者 Object.toJSON 或者 递归比较</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 实现一个深度比较函数，需要支持 对象、数组、数字、字符串、布尔值、null</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> i, l, leftChain, rightChain;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">compare2Objects</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> p;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remember that NaN === NaN returns false</span></span><br><span class="line">    <span class="comment">// and isNaN(undefined) returns true</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      <span class="built_in">isNaN</span>(x) &amp;&amp;</span><br><span class="line">      <span class="built_in">isNaN</span>(y) &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> x === <span class="string">&quot;number&quot;</span> &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> y === <span class="string">&quot;number&quot;</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Compare primitives and functions</span></span><br><span class="line">    <span class="keyword">if</span> (x === y) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Works in case when functions are created in constructor</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      (<span class="keyword">typeof</span> x === <span class="string">&quot;function&quot;</span> &amp;&amp; <span class="keyword">typeof</span> y === <span class="string">&quot;function&quot;</span>) ||</span><br><span class="line">      (x <span class="keyword">instanceof</span> <span class="built_in">Date</span> &amp;&amp; y <span class="keyword">instanceof</span> <span class="built_in">Date</span>) ||</span><br><span class="line">      (x <span class="keyword">instanceof</span> <span class="built_in">RegExp</span> &amp;&amp; y <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) ||</span><br><span class="line">      (x <span class="keyword">instanceof</span> <span class="built_in">String</span> &amp;&amp; y <span class="keyword">instanceof</span> <span class="built_in">String</span>) ||</span><br><span class="line">      (x <span class="keyword">instanceof</span> <span class="built_in">Number</span> &amp;&amp; y <span class="keyword">instanceof</span> <span class="built_in">Number</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> x.toString() === y.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// At last checking prototypes as good as we can</span></span><br><span class="line">    <span class="keyword">if</span> (!(x <span class="keyword">instanceof</span> <span class="built_in">Object</span> &amp;&amp; y <span class="keyword">instanceof</span> <span class="built_in">Object</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x.isPrototypeOf(y) || y.isPrototypeOf(x)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x.constructor !== y.constructor) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x.prototype !== y.prototype) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check for infinitive linking loops</span></span><br><span class="line">    <span class="keyword">if</span> (leftChain.indexOf(x) &gt; -<span class="number">1</span> || rightChain.indexOf(y) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Quick checking infinitive linking loops</span></span><br><span class="line">    <span class="keyword">for</span> (p <span class="keyword">in</span> y) &#123;</span><br><span class="line">      <span class="keyword">if</span> (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> y[p] !== <span class="keyword">typeof</span> x[p]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (p <span class="keyword">in</span> x) &#123;</span><br><span class="line">      <span class="keyword">if</span> (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> y[p] !== <span class="keyword">typeof</span> x[p]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (<span class="keyword">typeof</span> x[p]) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;object&quot;</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;function&quot;</span>:</span><br><span class="line">          leftChain.push(x);</span><br><span class="line">          rightChain.push(y);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (!compare2Objects(x[p], y[p])) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          leftChain.pop();</span><br><span class="line">          rightChain.pop();</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">          <span class="keyword">if</span> (x[p] !== y[p]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">arguments</span>.length &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">//Die silently? Don&#x27;t know how to handle such case, please help...</span></span><br><span class="line">    <span class="comment">// throw &quot;Need two or more arguments to compare&quot;;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">1</span>, l = <span class="built_in">arguments</span>.length; i &lt; l; i++) &#123;</span><br><span class="line">    leftChain = [];</span><br><span class="line">    rightChain = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!compare2Objects(<span class="built_in">arguments</span>[<span class="number">0</span>], <span class="built_in">arguments</span>[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> testData1 = [</span><br><span class="line">  <span class="number">1</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">&quot;Tom&quot;</span>,</span><br><span class="line">    age: <span class="number">19</span>,</span><br><span class="line">    list: [</span><br><span class="line">      <span class="number">1</span>,</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        address: <span class="string">&quot;China&quot;</span>,</span><br><span class="line">        male: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;Hello world&quot;</span>,</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&quot;white&quot;</span>,</span><br><span class="line">    <span class="string">&quot;yellow&quot;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      red: <span class="string">&quot;red&quot;</span>,</span><br><span class="line">      deep: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> testData2 = [</span><br><span class="line">  <span class="number">1</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">&quot;Tom&quot;</span>,</span><br><span class="line">    age: <span class="number">19</span>,</span><br><span class="line">    list: [</span><br><span class="line">      <span class="number">1</span>,</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        address: <span class="string">&quot;China&quot;</span>,</span><br><span class="line">        male: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;Hello world&quot;</span>,</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&quot;white&quot;</span>,</span><br><span class="line">    <span class="string">&quot;yellow&quot;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      red: <span class="string">&quot;red&quot;</span>,</span><br><span class="line">      deep: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = compare(testData1, testData2);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;result:&quot;</span>, result);</span><br></pre></td></tr></table></figure>
-
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot; is eating&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="built_in">this</span>, name);</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype);</span><br><span class="line">Child.prototype.constructor = Child;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">eat</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot; is eating&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name, age</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(name);</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取-URL-参数"><a href="#获取-URL-参数" class="headerlink" title="获取 URL 参数"></a>获取 URL 参数</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个URLSearchParams实例</span></span><br><span class="line"><span class="keyword">const</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search);</span><br><span class="line"><span class="comment">// 把键值对列表转换为一个对象</span></span><br><span class="line"><span class="keyword">const</span> params = <span class="built_in">Object</span>.fromEntries(urlSearchParams.entries());</span><br><span class="line"></span><br><span class="line"><span class="comment">// OR</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryObj</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (url.includes(<span class="string">&quot;?&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">const</span> str = url.split(<span class="string">&quot;?&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">const</span> arr = str.split(<span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">    arr.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> [key, value] = item.split(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">      res[key] = <span class="built_in">decodeURIComponent</span>(value); <span class="comment">// 解码</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组扁平化"><a href="#数组扁平化" class="headerlink" title="数组扁平化"></a>数组扁平化</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES7 支持原生flat</span></span><br><span class="line"><span class="keyword">const</span> flat = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> pre.concat(<span class="built_in">Array</span>.isArray(cur) ? flat(cur) : cur);</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组和树结构转化"><a href="#数组和树结构转化" class="headerlink" title="数组和树结构转化"></a>数组和树结构转化</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将扁平数组转换为树状结构</span></span><br><span class="line"><span class="comment">// 部门 -&gt; 子部门 扁平数组测试数据</span></span><br><span class="line"><span class="keyword">const</span> arr = [</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&quot;部门1&quot;</span>, <span class="attr">pid</span>: <span class="number">0</span> &#125;, <span class="comment">// 根部门</span></span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&quot;部门2&quot;</span>, <span class="attr">pid</span>: <span class="number">1</span> &#125;, <span class="comment">// 根部门 的子部门</span></span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">name</span>: <span class="string">&quot;部门3&quot;</span>, <span class="attr">pid</span>: <span class="number">1</span> &#125;, <span class="comment">// 根部门 的子部门</span></span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&quot;部门4&quot;</span>, <span class="attr">pid</span>: <span class="number">3</span> &#125;, <span class="comment">// 部门3 的子部门</span></span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&quot;部门5&quot;</span>, <span class="attr">pid</span>: <span class="number">4</span> &#125;, <span class="comment">// 部门4 的子部门</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tree</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = [];</span><br><span class="line">  <span class="keyword">let</span> map = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(arr)) <span class="keyword">return</span> res;</span><br><span class="line">  arr.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    map[itme.id] = item;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  arr.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> parent = map[item.pid];</span><br><span class="line">    <span class="keyword">if</span> (parent) &#123;</span><br><span class="line">      (parent.children || (parent.children = [])).push(item);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 根节点</span></span><br><span class="line">      res.push(item);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = tree(arr);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  id: <span class="number">1</span>,</span><br><span class="line">  name: <span class="string">&quot;部门1&quot;</span>,</span><br><span class="line">  pid: <span class="number">0</span>,</span><br><span class="line">  children: [</span><br><span class="line">    &#123;</span><br><span class="line">      id: <span class="number">2</span>,</span><br><span class="line">      name: <span class="string">&quot;部门2&quot;</span>,</span><br><span class="line">      pid: <span class="number">1</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      id: <span class="number">3</span>,</span><br><span class="line">      name: <span class="string">&quot;部门3&quot;</span>,</span><br><span class="line">      pid: <span class="number">1</span>,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: <span class="number">4</span>,</span><br><span class="line">          name: <span class="string">&quot;部门4&quot;</span>,</span><br><span class="line">          pid: <span class="number">3</span>,</span><br><span class="line">          children: [</span><br><span class="line">            &#123;</span><br><span class="line">              id: <span class="number">5</span>,</span><br><span class="line">              name: <span class="string">&quot;部门5&quot;</span>,</span><br><span class="line">              pid: <span class="number">4</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          ],</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将树结构再转为数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tree2Array</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> arr = [root];</span><br><span class="line">  <span class="keyword">let</span> res = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (arr.length) &#123;</span><br><span class="line">    <span class="keyword">let</span> node = arr.shift();</span><br><span class="line"></span><br><span class="line">    res.push(&#123; <span class="attr">id</span>: node.id, <span class="attr">name</span>: node.name, <span class="attr">pid</span>: node.pid &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (node.children &amp;&amp; node.children.length) &#123;</span><br><span class="line">      arr = arr.concat(node.children);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="new-bind"><a href="#new-bind" class="headerlink" title="new/bind"></a>new/bind</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// new对象过程</span></span><br><span class="line"><span class="comment">// 1. 生成新对象</span></span><br><span class="line"><span class="comment">// 2. 连接到原型</span></span><br><span class="line"><span class="comment">// 3. 绑定this</span></span><br><span class="line"><span class="comment">// 4. 返回新对象</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span>(<span class="params">func, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  obj.__proto__ = func.prototype;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> res = func.apply(obj, args);</span><br><span class="line">  <span class="keyword">return</span> res <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? res : obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">  <span class="built_in">this</span>.showInfo = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`name: <span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>--age: <span class="subst">$&#123;<span class="built_in">this</span>.age&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = myNew(Person, <span class="string">&quot;Matthew&quot;</span>, <span class="number">23</span>);</span><br><span class="line">person.showInfo();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES3 version</span></span><br><span class="line"><span class="comment">// bind都不支持，自然也不会支持const, let, ...args</span></span><br><span class="line"><span class="comment">// 错误处理</span></span><br><span class="line"><span class="comment">// 支持new</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myBind</span>(<span class="params">asThis</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> slice = <span class="built_in">Array</span>.prototype.slice;</span><br><span class="line">  <span class="comment">// arguments.slice(1, 2)不对</span></span><br><span class="line">  <span class="keyword">var</span> func = <span class="built_in">this</span>,</span><br><span class="line">    args = slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> func !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;What is trying to be bound is not callable.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">func2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> args2 = slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> func.apply(</span><br><span class="line">      <span class="built_in">this</span> <span class="keyword">instanceof</span> func2 ? <span class="built_in">this</span> : asThis,</span><br><span class="line">      args.concat(args2)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  func2.prototype = func.prototype;</span><br><span class="line">  <span class="keyword">return</span> func2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数组常见方法使用</title>
-    <url>/bloger/2021/08/24/JavaScript/%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="数组常见方法使用"><a href="#数组常见方法使用" class="headerlink" title="数组常见方法使用"></a>数组常见方法使用</h1><h2 id="reduce-篇"><a href="#reduce-篇" class="headerlink" title="reduce 篇"></a>reduce 篇</h2><h3 id="手写-reduce"><a href="#手写-reduce" class="headerlink" title="手写 reduce"></a>手写 reduce</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myReduce</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 深拷贝 此处省略</span></span><br><span class="line">  <span class="comment">// 异常处理  此处省略</span></span><br><span class="line">  <span class="keyword">let</span> callback = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> initialValue = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">let</span> acc;</span><br><span class="line">  <span class="keyword">let</span> i;</span><br><span class="line"></span><br><span class="line">  i = initialValue === <span class="literal">undefined</span> ? <span class="number">1</span> : <span class="number">0</span>;\</span><br><span class="line">  acc = initialValue == <span class="literal">undefined</span> ? <span class="built_in">this</span>[<span class="number">0</span>] : initialValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i; i &lt; <span class="built_in">this</span>.length; i++) &#123;</span><br><span class="line">      acc = callback(acc, <span class="built_in">this</span>[i], i, <span class="built_in">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line">  <span class="keyword">return</span> acc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myReduce = myReduce;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">result, currentValue, index</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> result + currentValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> a = arr.myReduce(func, <span class="number">10</span>);  <span class="comment">// 24</span></span><br><span class="line"><span class="keyword">let</span> b = arr.myReduce(func);      <span class="comment">// 14</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;myReduce&quot;</span>, a, b);</span><br></pre></td></tr></table></figure>
-
-<h3 id="求和，求积，求最值"><a href="#求和，求积，求最值" class="headerlink" title="求和，求积，求最值"></a>求和，求积，求最值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 求和、乘积</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> sum = arr.reduce(<span class="function">(<span class="params">x, y</span>) =&gt;</span> x + y);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;sum&quot;</span>, sum);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 求最值</span></span><br><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> max = nums.reduce(<span class="function">(<span class="params">x, y</span>) =&gt;</span> (x &gt; y ? x : y));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;max&quot;</span>, max);</span><br></pre></td></tr></table></figure>
-
-<h3 id="词频统计"><a href="#词频统计" class="headerlink" title="词频统计"></a>词频统计</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> names = [<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Tiff&quot;</span>, <span class="string">&quot;Bruce&quot;</span>, <span class="string">&quot;Alice&quot;</span>];</span><br><span class="line"><span class="keyword">let</span> nameObj = names.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (cur <span class="keyword">in</span> pre) &#123;</span><br><span class="line">    pre[cur]++;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    pre[cur] = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pre;</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;nameObj&quot;</span>, nameObj);</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> slice = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> uniqueArr = slice.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!pre.includes(cur)) &#123;</span><br><span class="line">    <span class="keyword">return</span> pre.concat(cur);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, []);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;uniqueArr&quot;</span>, uniqueArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="数组拍平"><a href="#数组拍平" class="headerlink" title="数组拍平"></a>数组拍平</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr_nD = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]],</span><br><span class="line">];</span><br><span class="line"><span class="comment">// 二维转一维</span></span><br><span class="line"><span class="comment">// let newArr = arr_nD.reduce((pre, cur) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//     return pre.concat(cur)</span></span><br><span class="line"><span class="comment">// &#125;, [])</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> flat = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> pre.concat(<span class="built_in">Array</span>.isArray(cur) ? flat(cur) : cur);</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;flat&quot;</span>, flat(arr_nD));</span><br></pre></td></tr></table></figure>
-
-<h3 id="对象属性求和"><a href="#对象属性求和" class="headerlink" title="对象属性求和"></a>对象属性求和</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result = [</span><br><span class="line">  &#123;</span><br><span class="line">    subject: <span class="string">&quot;math&quot;</span>,</span><br><span class="line">    score: <span class="number">60</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    subject: <span class="string">&quot;chinese&quot;</span>,</span><br><span class="line">    score: <span class="number">75</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    subject: <span class="string">&quot;english&quot;</span>,</span><br><span class="line">    score: <span class="number">80</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> summary = result.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">prev, cur</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> cur.score + prev;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> args = [].slice.apply(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">name</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> args.reduceRight(<span class="function">(<span class="params">res, cb</span>) =&gt;</span> cb(res), params);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pipe</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> args = [].slice.apply(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">name</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> args.reduce(<span class="function">(<span class="params">res, cb</span>) =&gt;</span> cb(res), params);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给定一个输入值x，先给这个值加10，然后结果乘以10</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">x</span>) =&gt;</span> x + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> multiply = <span class="function">(<span class="params">x</span>) =&gt;</span> x * <span class="number">10</span>;</span><br><span class="line"><span class="comment">// 参数从右往左执行，所以multiply在前，add在后</span></span><br><span class="line"><span class="keyword">let</span> ret = compose(multiply, add)(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;compose函数&quot;</span>, ret);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数从左往右执行，所以add在前，multiply在后</span></span><br><span class="line"><span class="keyword">let</span> rep = pipe(add, multiply)(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pipe函数&quot;</span>, rep);</span><br></pre></td></tr></table></figure>
-
-<h3 id="LeetCode-相关"><a href="#LeetCode-相关" class="headerlink" title="LeetCode 相关"></a>LeetCode 相关</h3><p>L14 最长公共前缀</p>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
       </categories>
   </entry>
   <entry>
@@ -447,36 +379,6 @@
       </categories>
       <tags>
         <tag>前端工程化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>区块链</title>
-    <url>/bloger/2021/08/02/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/%E5%8C%BA%E5%9D%97%E9%93%BE/</url>
-    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
-      <tags>
-        <tag>无服务应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SUMMARY</title>
-    <url>/bloger/2021/05/08/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/SUMMARY/</url>
-    <content><![CDATA[<h1 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h1><ul>
-<li><p>[] <a href="%E5%8C%BA%E5%9D%97%E9%93%BE.md">区块链</a></p>
-</li>
-<li><p>[] <a href="%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6.md">智能合约</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>去中心化</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>智能合约</title>
-    <url>/bloger/2021/08/02/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/</url>
-    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
-      <tags>
-        <tag>无服务应用</tag>
       </tags>
   </entry>
   <entry>
@@ -836,22 +738,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SUMMARY</title>
-    <url>/bloger/2021/05/08/%E5%9B%BE%E8%A7%A3Google%20V8/SUMMARY/</url>
-    <content><![CDATA[<h1 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h1><h2 id="JavaScript-设计思想"><a href="#JavaScript-设计思想" class="headerlink" title="JavaScript 设计思想"></a>JavaScript 设计思想</h2><ul>
-<li><p><a href="%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F.md">为什么函数是一等公民？</a></p>
-</li>
-<li><p>[] <a href="DNS%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84.md">dns 是如何实现负载均衡的</a></p>
-</li>
-<li><p>[] <a href="Nginx%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.md">nginx 如何实现负载均衡和反向代理</a></p>
-</li>
-</ul>
-<h2 id="V8-编译流水线"><a href="#V8-编译流水线" class="headerlink" title="V8 编译流水线"></a>V8 编译流水线</h2><h2 id="事件循环和垃圾回收"><a href="#事件循环和垃圾回收" class="headerlink" title="事件循环和垃圾回收"></a>事件循环和垃圾回收</h2>]]></content>
-      <categories>
-        <category>V8</category>
-      </categories>
-  </entry>
-  <entry>
     <title>前端性能优化----雅虎35条军规</title>
     <url>/bloger/2021/02/05/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96----%E9%9B%85%E8%99%8E35%E6%9D%A1%E5%86%9B%E8%A7%84/</url>
     <content><![CDATA[<h4 id="前端性能优化—-雅虎-35-条军规"><a href="#前端性能优化—-雅虎-35-条军规" class="headerlink" title="前端性能优化—-雅虎 35 条军规"></a>前端性能优化—-雅虎 35 条军规</h4><ol>
@@ -1135,6 +1021,52 @@
       <tags>
         <tag>前端性能监控</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>SUMMARY</title>
+    <url>/bloger/2021/05/08/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/SUMMARY/</url>
+    <content><![CDATA[<h1 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h1><ul>
+<li><p>[] <a href="%E5%8C%BA%E5%9D%97%E9%93%BE.md">区块链</a></p>
+</li>
+<li><p>[] <a href="%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6.md">智能合约</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>去中心化</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>区块链</title>
+    <url>/bloger/2021/08/02/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/%E5%8C%BA%E5%9D%97%E9%93%BE/</url>
+    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
+      <tags>
+        <tag>无服务应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能合约</title>
+    <url>/bloger/2021/08/02/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/</url>
+    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
+      <tags>
+        <tag>无服务应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SUMMARY</title>
+    <url>/bloger/2021/05/08/%E5%9B%BE%E8%A7%A3Google%20V8/SUMMARY/</url>
+    <content><![CDATA[<h1 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h1><h2 id="JavaScript-设计思想"><a href="#JavaScript-设计思想" class="headerlink" title="JavaScript 设计思想"></a>JavaScript 设计思想</h2><ul>
+<li><p><a href="%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91%EF%BC%9F.md">为什么函数是一等公民？</a></p>
+</li>
+<li><p>[] <a href="DNS%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84.md">dns 是如何实现负载均衡的</a></p>
+</li>
+<li><p>[] <a href="Nginx%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.md">nginx 如何实现负载均衡和反向代理</a></p>
+</li>
+</ul>
+<h2 id="V8-编译流水线"><a href="#V8-编译流水线" class="headerlink" title="V8 编译流水线"></a>V8 编译流水线</h2><h2 id="事件循环和垃圾回收"><a href="#事件循环和垃圾回收" class="headerlink" title="事件循环和垃圾回收"></a>事件循环和垃圾回收</h2>]]></content>
+      <categories>
+        <category>V8</category>
+      </categories>
   </entry>
   <entry>
     <title>你必须要知道的30个 Linux 命令</title>
@@ -1441,7 +1373,7 @@
 </ol>
 <ul>
 <li>从 GitHub 下载 webpack 的源码，切换至 v5.10.1</li>
-<li>从 GitHub 下载 webpack-cli 的源码，切换至 <a href="mailto:&#119;&#x65;&#98;&#112;&#x61;&#x63;&#107;&#x2d;&#99;&#108;&#x69;&#x40;&#52;&#x2e;&#50;&#46;&#48;">&#119;&#x65;&#98;&#112;&#x61;&#x63;&#107;&#x2d;&#99;&#108;&#x69;&#x40;&#52;&#x2e;&#50;&#46;&#48;</a></li>
+<li>从 GitHub 下载 webpack-cli 的源码，切换至 <a href="mailto:&#119;&#x65;&#x62;&#112;&#x61;&#99;&#x6b;&#x2d;&#99;&#108;&#x69;&#x40;&#52;&#x2e;&#50;&#x2e;&#x30;">&#119;&#x65;&#x62;&#112;&#x61;&#99;&#x6b;&#x2d;&#99;&#108;&#x69;&#x40;&#52;&#x2e;&#50;&#x2e;&#x30;</a></li>
 <li>用 IDE 的 3 个窗口分别打开这 3 个项目</li>
 </ul>
 <h2 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h2><ol>
@@ -1479,14 +1411,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Nginx如何实现负载均衡和反向代理</title>
-    <url>/bloger/2021/08/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/Nginx%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
-      <tags>
-        <tag>无服务应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DNS是如何实现负载均衡的</title>
     <url>/bloger/2021/08/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/DNS%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/</url>
     <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
@@ -1495,15 +1419,9 @@
       </tags>
   </entry>
   <entry>
-    <title>去服务化探索</title>
-    <url>/bloger/2021/08/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/%E5%8E%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8C%96%E6%8E%A2%E7%B4%A2/</url>
-    <content><![CDATA[<h1 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h1><ul>
-<li><p><a href="https://blog.csdn.net/cunjie3951/article/details/106906118">如何使用 React 和 AWS Amplify 构建无服务器 Web 应用程序</a></p>
-</li>
-<li><p><a href="https://docs.amplify.aws/start/q/integration/react">Amplify Docs</a></p>
-</li>
-</ul>
-]]></content>
+    <title>Nginx如何实现负载均衡和反向代理</title>
+    <url>/bloger/2021/08/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/Nginx%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<h1 id="敬请期待"><a href="#敬请期待" class="headerlink" title="敬请期待!!!"></a>敬请期待!!!</h1>]]></content>
       <tags>
         <tag>无服务应用</tag>
       </tags>
@@ -1523,6 +1441,20 @@
       <categories>
         <category>服务器相关</category>
       </categories>
+  </entry>
+  <entry>
+    <title>去服务化探索</title>
+    <url>/bloger/2021/08/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/%E5%8E%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8C%96%E6%8E%A2%E7%B4%A2/</url>
+    <content><![CDATA[<h1 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h1><ul>
+<li><p><a href="https://blog.csdn.net/cunjie3951/article/details/106906118">如何使用 React 和 AWS Amplify 构建无服务器 Web 应用程序</a></p>
+</li>
+<li><p><a href="https://docs.amplify.aws/start/q/integration/react">Amplify Docs</a></p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>无服务应用</tag>
+      </tags>
   </entry>
   <entry>
     <title>Webpack5新特性</title>
@@ -1671,23 +1603,6 @@
       </categories>
       <tags>
         <tag>Webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Webpack源码浅析</title>
-    <url>/bloger/2020/12/20/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="Webpack-源码浅析"><a href="#Webpack-源码浅析" class="headerlink" title="Webpack 源码浅析"></a>Webpack 源码浅析</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a href="https://segmentfault.com/a/1190000021585435">https://segmentfault.com/a/1190000021585435</a></p>
-</li>
-<li><p><a href="https://juejin.cn/post/6844903987129352206">https://juejin.cn/post/6844903987129352206</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>构建工具</category>
-      </categories>
-      <tags>
-        <tag>Webpack 源码浅析</tag>
       </tags>
   </entry>
   <entry>
@@ -1912,14 +1827,20 @@
       </tags>
   </entry>
   <entry>
-    <title>解析 webpack 核心——Plugin 原理</title>
-    <url>/bloger/2020/12/08/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/%E8%A7%A3%E6%9E%90%20webpack%20%E6%A0%B8%E5%BF%83%E2%80%94%E2%80%94Plugin%20%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h1 id="解析-webpack-核心——Plugin-原理"><a href="#解析-webpack-核心——Plugin-原理" class="headerlink" title="解析 webpack 核心——Plugin 原理"></a>解析 webpack 核心——Plugin 原理</h1>]]></content>
+    <title>Webpack源码浅析</title>
+    <url>/bloger/2020/12/20/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Webpack%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="Webpack-源码浅析"><a href="#Webpack-源码浅析" class="headerlink" title="Webpack 源码浅析"></a>Webpack 源码浅析</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://segmentfault.com/a/1190000021585435">https://segmentfault.com/a/1190000021585435</a></p>
+</li>
+<li><p><a href="https://juejin.cn/post/6844903987129352206">https://juejin.cn/post/6844903987129352206</a></p>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>构建工具</category>
       </categories>
       <tags>
-        <tag>Webpack plugin</tag>
+        <tag>Webpack 源码浅析</tag>
       </tags>
   </entry>
   <entry>
@@ -1992,18 +1913,18 @@
 
 <h2 id="阅读源码前必读"><a href="#阅读源码前必读" class="headerlink" title="阅读源码前必读"></a>阅读源码前必读</h2><p><a href="https://matthrews.github.io/bloger/2020/12/08/%E7%9C%8B%E6%BA%90%E7%A0%81%E7%9A%84%E4%B8%80%E7%82%B9%E6%96%B9%E6%B3%95%E8%AE%BA/">看源码的一点方法论</a></p>
 <h2 id="raw-loader-和-file-loader-源码阅读"><a href="#raw-loader-和-file-loader-源码阅读" class="headerlink" title="raw-loader 和 file-loader 源码阅读"></a>raw-loader 和 file-loader 源码阅读</h2><blockquote>
-<p><a href="mailto:&#114;&#x61;&#x77;&#45;&#x6c;&#x6f;&#97;&#100;&#x65;&#114;&#64;&#x30;&#46;&#x31;&#x2e;&#53;">&#114;&#x61;&#x77;&#45;&#x6c;&#x6f;&#97;&#100;&#x65;&#114;&#64;&#x30;&#46;&#x31;&#x2e;&#53;</a></p>
+<p><a href="mailto:&#x72;&#x61;&#x77;&#x2d;&#108;&#x6f;&#97;&#x64;&#101;&#x72;&#x40;&#48;&#46;&#x31;&#46;&#x35;">&#x72;&#x61;&#x77;&#x2d;&#108;&#x6f;&#97;&#x64;&#101;&#x72;&#x40;&#48;&#46;&#x31;&#46;&#x35;</a></p>
 </blockquote>
 <blockquote>
-<p><a href="mailto:&#102;&#105;&#108;&#101;&#45;&#x6c;&#111;&#97;&#x64;&#101;&#114;&#64;&#x30;&#46;&#56;&#46;&#50;">&#102;&#105;&#108;&#101;&#45;&#x6c;&#111;&#97;&#x64;&#101;&#114;&#64;&#x30;&#46;&#56;&#46;&#50;</a></p>
+<p><a href="mailto:&#102;&#105;&#x6c;&#101;&#45;&#x6c;&#x6f;&#97;&#x64;&#x65;&#x72;&#64;&#48;&#46;&#56;&#x2e;&#x32;">&#102;&#105;&#x6c;&#101;&#45;&#x6c;&#x6f;&#97;&#x64;&#x65;&#x72;&#64;&#48;&#46;&#56;&#x2e;&#x32;</a></p>
 </blockquote>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// raw-loader</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">  args = args.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="built_in">this</span>.values = [args];</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;module.exports = &quot;</span> + <span class="built_in">JSON</span>.stringify(args);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// file-loader</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">content</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.cacheable &amp;&amp; <span class="built_in">this</span>.cacheable();</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">this</span>.emitFile)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;emitFile is required from module system&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> query = loaderUtils.parseQuery(<span class="built_in">this</span>.query);</span><br><span class="line">  <span class="keyword">var</span> url = loaderUtils.interpolateName(<span class="built_in">this</span>, query.name || <span class="string">&quot;[hash].[ext]&quot;</span>, &#123;</span><br><span class="line">    context: query.context || <span class="built_in">this</span>.options.context,</span><br><span class="line">    content: content,</span><br><span class="line">    regExp: query.regExp,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">this</span>.emitFile(url, content);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;module.exports = __webpack_public_path__ + &quot;</span> + <span class="built_in">JSON</span>.stringify(url);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">module</span>.exports.raw = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
 
 <h2 id="css-loader-和-style-loader-源码阅读"><a href="#css-loader-和-style-loader-源码阅读" class="headerlink" title="css-loader 和 style-loader 源码阅读"></a>css-loader 和 style-loader 源码阅读</h2><blockquote>
-<p><a href="mailto:&#115;&#116;&#x79;&#x6c;&#101;&#45;&#108;&#111;&#97;&#x64;&#x65;&#x72;&#x40;&#48;&#46;&#49;&#x33;&#46;&#x30;">&#115;&#116;&#x79;&#x6c;&#101;&#45;&#108;&#111;&#97;&#x64;&#x65;&#x72;&#x40;&#48;&#46;&#49;&#x33;&#46;&#x30;</a></p>
+<p><a href="mailto:&#115;&#116;&#121;&#108;&#x65;&#x2d;&#108;&#x6f;&#97;&#x64;&#x65;&#114;&#64;&#x30;&#x2e;&#x31;&#51;&#46;&#x30;">&#115;&#116;&#121;&#108;&#x65;&#x2d;&#108;&#x6f;&#97;&#x64;&#x65;&#114;&#64;&#x30;&#x2e;&#x31;&#51;&#46;&#x30;</a></p>
 </blockquote>
 <blockquote>
-<p><a href="mailto:&#x63;&#x73;&#115;&#45;&#x6c;&#111;&#97;&#100;&#x65;&#x72;&#64;&#x30;&#46;&#x32;&#56;&#x2e;&#x34;">&#x63;&#x73;&#115;&#45;&#x6c;&#111;&#97;&#100;&#x65;&#x72;&#64;&#x30;&#46;&#x32;&#56;&#x2e;&#x34;</a></p>
+<p><a href="mailto:&#x63;&#115;&#115;&#x2d;&#108;&#111;&#x61;&#100;&#101;&#x72;&#64;&#x30;&#x2e;&#50;&#56;&#x2e;&#x34;">&#x63;&#115;&#115;&#x2d;&#108;&#111;&#x61;&#100;&#101;&#x72;&#64;&#x30;&#x2e;&#50;&#56;&#x2e;&#x34;</a></p>
 </blockquote>
 <ul>
 <li>css-loader 和 style-loader 都做了什么，怎么做的？</li>
@@ -2051,6 +1972,17 @@
       </categories>
       <tags>
         <tag>Webpack loader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解析 webpack 核心——Plugin 原理</title>
+    <url>/bloger/2020/12/08/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/%E8%A7%A3%E6%9E%90%20webpack%20%E6%A0%B8%E5%BF%83%E2%80%94%E2%80%94Plugin%20%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="解析-webpack-核心——Plugin-原理"><a href="#解析-webpack-核心——Plugin-原理" class="headerlink" title="解析 webpack 核心——Plugin 原理"></a>解析 webpack 核心——Plugin 原理</h1>]]></content>
+      <categories>
+        <category>构建工具</category>
+      </categories>
+      <tags>
+        <tag>Webpack plugin</tag>
       </tags>
   </entry>
   <entry>
@@ -2293,81 +2225,6 @@
         <tag>babel</tag>
         <tag>parser</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>HTTP 权威指南 阅读笔记</title>
-    <url>/bloger/2021/02/01/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<h1 id="HTTP-权威指南"><a href="#HTTP-权威指南" class="headerlink" title="HTTP 权威指南"></a>HTTP 权威指南</h1><h2 id="第一部分-HTTP：Web-的基础"><a href="#第一部分-HTTP：Web-的基础" class="headerlink" title="第一部分 HTTP：Web 的基础"></a>第一部分 HTTP：Web 的基础</h2><h3 id="第-1-章-什么是-HTTP"><a href="#第-1-章-什么是-HTTP" class="headerlink" title="第 1 章 什么是 HTTP"></a>第 1 章 什么是 HTTP</h3><h3 id="第-2-章-什么是-URL"><a href="#第-2-章-什么是-URL" class="headerlink" title="第 2 章 什么是 URL"></a>第 2 章 什么是 URL</h3><h3 id="第-3-章-HTTP-报文是如何传输-Web-内容的"><a href="#第-3-章-HTTP-报文是如何传输-Web-内容的" class="headerlink" title="第 3 章 HTTP 报文是如何传输 Web 内容的"></a>第 3 章 HTTP 报文是如何传输 Web 内容的</h3><h3 id="第-4-章-HTTP-连接管理过程"><a href="#第-4-章-HTTP-连接管理过程" class="headerlink" title="第 4 章 HTTP 连接管理过程"></a>第 4 章 HTTP 连接管理过程</h3><h2 id="第二部分-HTTP-结构"><a href="#第二部分-HTTP-结构" class="headerlink" title="第二部分 HTTP 结构"></a>第二部分 HTTP 结构</h2><h3 id="第-5-章-Web-服务器结构"><a href="#第-5-章-Web-服务器结构" class="headerlink" title="第 5 章 Web 服务器结构"></a>第 5 章 Web 服务器结构</h3><h3 id="第-6-章-HTTP-代理服务器"><a href="#第-6-章-HTTP-代理服务器" class="headerlink" title="第 6 章 HTTP 代理服务器"></a>第 6 章 HTTP 代理服务器</h3><h3 id="第-7-章-Web-缓存"><a href="#第-7-章-Web-缓存" class="headerlink" title="第 7 章 Web 缓存"></a>第 7 章 Web 缓存</h3><h3 id="第-8-章-网关和应用服务器的概念"><a href="#第-8-章-网关和应用服务器的概念" class="headerlink" title="第 8 章 网关和应用服务器的概念"></a>第 8 章 网关和应用服务器的概念</h3><h3 id="第-9-章-Web-上的各种客户端类型"><a href="#第-9-章-Web-上的各种客户端类型" class="headerlink" title="第 9 章 Web 上的各种客户端类型"></a>第 9 章 Web 上的各种客户端类型</h3><h3 id="第-10-章-仍在研究之中的-HTTP-协议：HTTP-NG-协议"><a href="#第-10-章-仍在研究之中的-HTTP-协议：HTTP-NG-协议" class="headerlink" title="第 10 章 仍在研究之中的 HTTP 协议：HTTP-NG 协议"></a>第 10 章 仍在研究之中的 HTTP 协议：HTTP-NG 协议</h3><h2 id="第三部分-识别、认证与安全"><a href="#第三部分-识别、认证与安全" class="headerlink" title="第三部分 识别、认证与安全"></a>第三部分 识别、认证与安全</h2><h3 id="第-11-章-识别用户的技术，以便向用户提供私人化的内容服务"><a href="#第-11-章-识别用户的技术，以便向用户提供私人化的内容服务" class="headerlink" title="第 11 章 识别用户的技术，以便向用户提供私人化的内容服务"></a>第 11 章 识别用户的技术，以便向用户提供私人化的内容服务</h3><h3 id="第-12-章-验证用户身份的基本方式"><a href="#第-12-章-验证用户身份的基本方式" class="headerlink" title="第 12 章 验证用户身份的基本方式"></a>第 12 章 验证用户身份的基本方式</h3><h3 id="第-13-章-摘要认证"><a href="#第-13-章-摘要认证" class="headerlink" title="第 13 章 摘要认证"></a>第 13 章 摘要认证</h3><h3 id="第-14-章-因特网的密码体系、数字证书以及-SSL"><a href="#第-14-章-因特网的密码体系、数字证书以及-SSL" class="headerlink" title="第 14 章 因特网的密码体系、数字证书以及 SSL"></a>第 14 章 因特网的密码体系、数字证书以及 SSL</h3><h2 id="第四部分-实体、编码和国际化"><a href="#第四部分-实体、编码和国际化" class="headerlink" title="第四部分 实体、编码和国际化"></a>第四部分 实体、编码和国际化</h2><h3 id="第-15-章-HTTP-内容的结构"><a href="#第-15-章-HTTP-内容的结构" class="headerlink" title="第 15 章 HTTP 内容的结构"></a>第 15 章 HTTP 内容的结构</h3><h3 id="第-16-章-Web-标准"><a href="#第-16-章-Web-标准" class="headerlink" title="第 16 章 Web 标准"></a>第 16 章 Web 标准</h3><h3 id="第-17-章-用于协商可接受内容的机制"><a href="#第-17-章-用于协商可接受内容的机制" class="headerlink" title="第 17 章 用于协商可接受内容的机制"></a>第 17 章 用于协商可接受内容的机制</h3><h2 id="第五部分-内容发布与分发"><a href="#第五部分-内容发布与分发" class="headerlink" title="第五部分 内容发布与分发"></a>第五部分 内容发布与分发</h2><h3 id="第-18-章-在现代的网站托管环境中布署服务器的方式"><a href="#第-18-章-在现代的网站托管环境中布署服务器的方式" class="headerlink" title="第 18 章 在现代的网站托管环境中布署服务器的方式"></a>第 18 章 在现代的网站托管环境中布署服务器的方式</h3><h3 id="第-19-章-创建-Web-内容，并将其装载到-Web-服务器中去的技术"><a href="#第-19-章-创建-Web-内容，并将其装载到-Web-服务器中去的技术" class="headerlink" title="第 19 章 创建 Web 内容，并将其装载到 Web 服务器中去的技术"></a>第 19 章 创建 Web 内容，并将其装载到 Web 服务器中去的技术</h3><h3 id="第-20-章-Web-流量分散到一组服务器上去的一些工具和技术"><a href="#第-20-章-Web-流量分散到一组服务器上去的一些工具和技术" class="headerlink" title="第 20 章 Web 流量分散到一组服务器上去的一些工具和技术"></a>第 20 章 Web 流量分散到一组服务器上去的一些工具和技术</h3><h3 id="第-21-章-日志格式和常见问题"><a href="#第-21-章-日志格式和常见问题" class="headerlink" title="第 21 章 日志格式和常见问题"></a>第 21 章 日志格式和常见问题</h3><h2 id="第六部分-附录"><a href="#第六部分-附录" class="headerlink" title="第六部分 附录"></a>第六部分 附录</h2>]]></content>
-      <categories>
-        <category>HTTP</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go 语言学习笔记</title>
-    <url>/bloger/2022/02/14/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9F/go/go/</url>
-    <content><![CDATA[<h1 id="Go-语言学习笔记"><a href="#Go-语言学习笔记" class="headerlink" title="Go 语言学习笔记"></a>Go 语言学习笔记</h1><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
-<li>自动垃圾回收</li>
-<li>更丰富的内置类型</li>
-<li>函数多返回值</li>
-<li>错误处理</li>
-<li>匿名函数和闭包</li>
-<li>类型和接口</li>
-<li>并发编程</li>
-<li>反射</li>
-<li>语言交互性</li>
-</ul>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ul>
-<li>搭载 Web 服务器</li>
-<li>存储集群应用</li>
-<li>海量并行的支持</li>
-</ul>
-<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>运行 go 代码：<code>go run hello.go</code></p>
-<p>将源代码编译为二进制文件：<code>go build hello.go</code></p>
-<h2 id="Go-语言结构"><a href="#Go-语言结构" class="headerlink" title="Go 语言结构"></a>Go 语言结构</h2><p>由包声明，函数，变量，语句&amp;表达式和注释组成</p>
-<h2 id="Go-语言语法"><a href="#Go-语言语法" class="headerlink" title="Go 语言语法"></a>Go 语言语法</h2><ol>
-<li><p>标识符命名必须是由字母数字下划线组成，并且首位不能为数字</p>
-</li>
-<li><p>字符串拼接通过+实现</p>
-</li>
-<li><p>25 个关键字和 36 个预定义标识符</p>
-</li>
-<li><p>使用 <code>fmt.Sprintf</code> 格式化字符串并赋值给新串</p>
-</li>
-</ol>
-<h2 id="Go-语言数据类型"><a href="#Go-语言数据类型" class="headerlink" title="Go 语言数据类型"></a>Go 语言数据类型</h2><p>布尔型，数字型，字符串型，派生类型（Pinter, Array, Struct, Channel, Func, Slice, Map, Interface）</p>
-<p>数字型分为：整数型和浮点型，值得一提的是浮点型不仅支持 float32 和 float64 还支持 complex64 和 complex128，这将使得 go 语言成为科学计算选择的可能</p>
-<h2 id="Go-语言变量"><a href="#Go-语言变量" class="headerlink" title="Go 语言变量"></a>Go 语言变量</h2><ol>
-<li>变量声明分为 3 种情况</li>
-</ol>
-<ul>
-<li><p>指定变量类型，如果没有初始化，则变量默认为零值。</p>
-</li>
-<li><p>根据值自行判定变量类型</p>
-<!-- go 1.9版本对于数字类型，无需定义int及float32、float64，系统会自动识别 --></li>
-<li><p>如果变量已经使用 <code>var</code> 声明过了，再使用 <code>:=</code> 声明变量，就产生编译错误</p>
-</li>
-</ul>
-<h2 id="特殊常量-iota"><a href="#特殊常量-iota" class="headerlink" title="特殊常量 iota"></a>特殊常量 iota</h2><h2 id="Go-语言运算符"><a href="#Go-语言运算符" class="headerlink" title="Go 语言运算符"></a>Go 语言运算符</h2><ul>
-<li><p>&amp; 返回变量存储地址 <code>&amp;a;</code> 将给出变量的实际地址。</p>
-</li>
-<li><ul>
-<li>指针变量。 <code>\*a;</code> 是一个指针变量</li>
-</ul>
-</li>
-<li><p>go 没有三目运算符</p>
-</li>
-</ul>
-<h2 id="Go-语言条件语句"><a href="#Go-语言条件语句" class="headerlink" title="Go 语言条件语句"></a>Go 语言条件语句</h2><p>值得注意的是 select 语句，类似于 switch 语句，但是 select 会随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。</p>
-<p>但是只能用于 channel 的操作(写入/读出)</p>
-<p>关于 select： <a href="https://zhuanlan.zhihu.com/p/256950290">https://zhuanlan.zhihu.com/p/256950290</a></p>
-<h2 id="Go-语言循环控制"><a href="#Go-语言循环控制" class="headerlink" title="Go 语言循环控制"></a>Go 语言循环控制</h2><p>break, continue, goto</p>
-]]></content>
-      <categories>
-        <category>Go</category>
-      </categories>
   </entry>
   <entry>
     <title>闭包是什么？</title>
@@ -2872,12 +2729,12 @@
   </entry>
   <entry>
     <title>精简版React源码手稿</title>
-    <url>/bloger/2021/08/10/UI%E6%A1%86%E6%9E%B6/%E7%B2%BE%E7%AE%80%E7%89%88React%E6%BA%90%E7%A0%81%E6%89%8B%E7%A8%BF/</url>
+    <url>/bloger/2022/03/11/UI%E6%A1%86%E6%9E%B6/%E7%B2%BE%E7%AE%80%E7%89%88React%E6%BA%90%E7%A0%81%E6%89%8B%E7%A8%BF/</url>
     <content><![CDATA[<h1 id="精简版-React-源码手稿"><a href="#精简版-React-源码手稿" class="headerlink" title="精简版 React 源码手稿"></a>精简版 React 源码手稿</h1><blockquote>
 <p>TLDR: 全是源码，适合看过源码想回头细看的同学</p>
 </blockquote>
 <blockquote>
-<p>本次分享源码版本<a href="mailto:&#x72;&#x65;&#x61;&#99;&#x74;&#64;&#49;&#54;&#x2e;&#54;&#46;&#x30;">&#x72;&#x65;&#x61;&#99;&#x74;&#64;&#49;&#54;&#x2e;&#54;&#46;&#x30;</a>和react@16.7.0</p>
+<p>本次分享源码版本<a href="mailto:&#x72;&#101;&#x61;&#99;&#116;&#x40;&#x31;&#x36;&#x2e;&#x36;&#x2e;&#48;">&#x72;&#101;&#x61;&#99;&#116;&#x40;&#x31;&#x36;&#x2e;&#x36;&#x2e;&#48;</a>和react@16.7.0</p>
 </blockquote>
 <blockquote>
 <p>注：本此分享更多的是源码，概念性的东西读者可自行查阅官网文档或者 YouTube React Conference</p>
@@ -2962,7 +2819,7 @@
 <p><a href="https://reactjs.org/docs/hooks-intro.html">Hook 简介</a></p>
 </blockquote>
 <blockquote>
-<p><a href="mailto:&#x72;&#x65;&#97;&#99;&#x74;&#64;&#x31;&#x36;&#x2e;&#x37;&#x2e;&#x30;">&#x72;&#x65;&#97;&#99;&#x74;&#64;&#x31;&#x36;&#x2e;&#x37;&#x2e;&#x30;</a></p>
+<p><a href="mailto:&#114;&#101;&#x61;&#x63;&#116;&#x40;&#49;&#54;&#46;&#x37;&#x2e;&#x30;">&#114;&#101;&#x61;&#x63;&#116;&#x40;&#49;&#54;&#46;&#x37;&#x2e;&#x30;</a></p>
 </blockquote>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// packages\react\src\React.js</span></span><br><span class="line"><span class="keyword">if</span> (enableHooks) &#123;</span><br><span class="line">  React.useCallback = useCallback;</span><br><span class="line">  React.useContext = useContext;</span><br><span class="line">  React.useEffect = useEffect;</span><br><span class="line">  React.useImperativeMethods = useImperativeMethods;</span><br><span class="line">  React.useLayoutEffect = useLayoutEffect;</span><br><span class="line">  React.useMemo = useMemo;</span><br><span class="line">  React.useReducer = useReducer;</span><br><span class="line">  React.useRef = useRef;</span><br><span class="line">  React.useState = useState;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// packages\react\src\ReactHooks.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useState</span>&lt;<span class="title">S</span>&gt;(<span class="params">initialState: (() =&gt; S) | S</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher();</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useState(initialState);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useEffect</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  create: () =&gt; mixed,</span></span></span><br><span class="line"><span class="function"><span class="params">  inputs: <span class="built_in">Array</span>&lt;mixed&gt; | <span class="keyword">void</span> | <span class="literal">null</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher();</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useEffect(create, inputs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这一步是在dom渲染的时候才拿到的</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveDispatcher</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = ReactCurrentOwner.currentDispatcher;</span><br><span class="line">  <span class="keyword">return</span> dispatcher;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染的时候从不同平台传进来的全局对象</span></span><br><span class="line"><span class="keyword">const</span> ReactCurrentOwner = &#123;</span><br><span class="line">  current: (<span class="literal">null</span>: <span class="literal">null</span> | Fiber),</span><br><span class="line">  currentDispatcher: (<span class="literal">null</span>: <span class="literal">null</span> | Dispatcher),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
