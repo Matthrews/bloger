@@ -11,7 +11,7 @@ category:
 
 ## JavaScript 设计思想
 
-- [x] [为什么函数是一等公民？](为什么函数是一等公民？.md)
+- [x] [JavaScript 设计思想](JavaScript设计思想.md)
 
 - [] [dns 是如何实现负载均衡的](DNS是如何实现负载均衡的.md)
 
